@@ -1,109 +1,86 @@
 # releasing/terraform-google-firebase/terraform-google-firebase
 
-## Description
-### Tagline
-This is an auto-generated module.
+This module makes it easy to manage Firebase resources on Google Cloud Platform, following the Cloud Foundation Toolkit (CFT) standards.
 
-### Detailed
-This module was generated from [terraform-google-module-template](https://github.com/terraform-google-modules/terraform-google-module-template/), which by default generates a module that simply creates a GCS bucket. As the module develops, this README should be updated.
+This module consists of the following submodules:
 
-The resources/services/activations/deletions that this module will create/trigger are:
+- [firebase_core](./modules/firebase_core)
+- [firebase_apps](./modules/firebase_apps)
+- [firebase_rules](./modules/firebase_rules)
+- [firebase_ai_logic](./modules/firebase_ai_logic)
+- [firebase_auth](./modules/firebase_auth)
+- [firebase_app_check](./modules/firebase_app_check)
+- [firebase_app_hosting](./modules/firebase_app_hosting)
 
-- Create a GCS bucket with the provided name
+See more details in each module's README.
 
-### PreDeploy
-To deploy this blueprint you must have an active billing account and billing permissions.
+## Compatibility
+This module is meant for use with Terraform 1.3+ and tested using Terraform 1.6+.
+If you find incompatibilities using Terraform `>=1.13`, please open an issue.
 
-## Architecture
-![alt text for diagram](https://www.link-to-architecture-diagram.com)
-1. Architecture description step no. 1
-2. Architecture description step no. 2
-3. Architecture description step no. N
+## Root module
 
-## Documentation
-- [Hosting a Static Website](https://cloud.google.com/storage/docs/hosting-static-website)
-
-## Deployment Duration
-Configuration: X mins
-Deployment: Y mins
-
-## Cost
-[Blueprint cost details](https://cloud.google.com/products/calculator?id=02fb0c45-cc29-4567-8cc6-f72ac9024add)
-
-## Usage
-
-Basic usage of this module is as follows:
-
-```hcl
-module "terraform_google_firebase" {
-  source  = "terraform-google-modules/terraform-google-firebase/google"
-  version = "~> 0.1"
-
-  project_id  = "<PROJECT ID>"
-  bucket_name = "gcs-test-bucket"
-}
-```
-
-Functional examples are included in the
-[examples](./examples/) directory.
-
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-## Inputs
-
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| bucket\_name | The name of the bucket to create | `string` | n/a | yes |
-| project\_id | The project ID to deploy to | `string` | n/a | yes |
-
-## Outputs
-
-| Name | Description |
-|------|-------------|
-| bucket\_name | Name of the bucket |
-
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+The root module has no configuration. Please switch to using one of the submodules.
 
 ## Requirements
 
-These sections describe requirements for using this module.
+### Installation Dependencies
 
-### Software
+- [Terraform](https://www.terraform.io/downloads.html) >= 1.3.0
+- [terraform-provider-google](https://github.com/terraform-providers/terraform-provider-google) plugin v5.0+
+- [Terraform Provider Beta for GCP](https://github.com/terraform-providers/terraform-provider-google-beta) plugin v5.0+
 
-The following dependencies must be available:
+### Configure a Service Account
 
-- [Terraform][terraform] v0.13
-- [Terraform Provider for GCP][terraform-provider-gcp] plugin v3.0
+> [!CAUTION]
+> **TODO**: Finalize the minimum required roles for comprehensive Firebase management.
 
-### Service Account
+In order to execute this module you must have a Service Account.
 
-A service account with the following roles must be used to provision
-the resources of this module:
+#### Roles
 
-- Storage Admin: `roles/storage.admin`
+No specific roles are required at this stage. Roles will be documented here as they are identified.
 
-The [Project Factory module][project-factory-module] and the
-[IAM module][iam-module] may be used in combination to provision a
-service account with the necessary roles applied.
+### Enable APIs
 
-### APIs
+> [!CAUTION]
+> **TODO**: Verify the full list of required APIs for all Wave 1 products.
 
-A project with the following APIs enabled must be used to host the
-resources of this module:
+No specific APIs are required at this stage. APIs will be documented here as they are identified.
 
-- Google Cloud Storage JSON API: `storage-api.googleapis.com`
+## Provision Instructions
 
-The [Project Factory module][project-factory-module] can be used to
-provision a project with the necessary APIs enabled.
+> [!CAUTION]
+> **TODO**: Update these examples with real resource configurations once submodules are finalized.
+
+This module has no root configuration. A module with no root configuration cannot be used directly.
+
+Copy and paste into your Terraform configuration, insert the variables, and run terraform init :
+
+For General Firebase Configuration:
+```hcl
+module "firebase" {
+  source  = "terraform-google-modules/firebase/google//modules/firebase_core"
+  version = "~> 0.1"
+
+  project_id = "<PROJECT ID>"
+}
+```
+
+For Firebase Apps:
+```hcl
+module "firebase_apps" {
+  source  = "terraform-google-modules/firebase/google//modules/firebase_apps"
+  version = "~> 0.1"
+
+  project_id = "<PROJECT ID>"
+}
+```
 
 ## Contributing
 
 Refer to the [contribution guidelines](./CONTRIBUTING.md) for
 information on contributing to this module.
-
-[iam-module]: https://registry.terraform.io/modules/terraform-google-modules/iam/google
-[project-factory-module]: https://registry.terraform.io/modules/terraform-google-modules/project-factory/google
-[terraform-provider-gcp]: https://www.terraform.io/docs/providers/google/index.html
-[terraform]: https://www.terraform.io/downloads.html
 
 ## Security Disclosures
 

@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package multiple_buckets
+package firebase_project
 
 import (
 	"testing"
@@ -23,7 +23,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestSimpleExample(t *testing.T) {
+func TestFirebaseProject(t *testing.T) {
 	example := tft.NewTFBlueprintTest(t)
 
 	example.DefineVerify(func(assert *assert.Assertions) {
@@ -32,8 +32,8 @@ func TestSimpleExample(t *testing.T) {
 		projectID := example.GetStringOutput("project_id")
 		services := gcloud.Run(t, "services list", gcloud.WithCommonArgs([]string{"--project", projectID, "--format", "json"})).Array()
 
-		match := utils.GetFirstMatchResult(t, services, "config.name", "storage.googleapis.com")
-		assert.Equal("ENABLED", match.Get("state").String(), "storage service should be enabled")
+		match := utils.GetFirstMatchResult(t, services, "config.name", "serviceusage.googleapis.com")
+		assert.Equal("ENABLED", match.Get("state").String(), "serviceusage service should be enabled")
 	})
 	example.Test()
 }
