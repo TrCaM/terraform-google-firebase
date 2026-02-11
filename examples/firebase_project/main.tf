@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Google LLC
+ * Copyright 2026 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,11 +14,9 @@
  * limitations under the License.
  */
 
-terraform {
-  required_providers {
-    google = {
-      source = "hashicorp/google"
-    }
-  }
-  required_version = ">= 0.13"
+module "firebase_core" {
+  source = "../../modules/firebase_core"
+  # [restore-marker]   version = "~> 0.1"
+
+  project_id = var.project_id
 }

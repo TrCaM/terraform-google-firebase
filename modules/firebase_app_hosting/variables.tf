@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Google LLC
+ * Copyright 2026 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 
-resource "google_storage_bucket" "main" {
-  project  = var.project_id
-  name     = var.bucket_name
-  location = "US"
+variable "project_id" {
+  description = "The project ID to deploy to"
+  type        = string
 }
