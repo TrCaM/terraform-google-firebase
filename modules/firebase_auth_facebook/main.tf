@@ -1,5 +1,5 @@
 /**
- * Copyright 2019 Google LLC
+ * Copyright 2026 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,22 +14,12 @@
  * limitations under the License.
  */
 
-module "project" {
-  source  = "terraform-google-modules/project-factory/google"
-  version = "~> 17.0"
-
-  name              = "cft-firebase-ci"
-  random_project_id = "true"
-  org_id            = var.org_id
-  folder_id         = var.folder_id
-  billing_account   = var.billing_account
-
-  activate_apis = [
-    "cloudresourcemanager.googleapis.com",
-    "firebase.googleapis.com",
-    "identitytoolkit.googleapis.com",
-    "serviceusage.googleapis.com"
-  ]
-
-  deletion_policy = "DELETE"
+# Facebook IDP Configuration
+resource "google_identity_platform_default_supported_idp_config" "facebook" {
+  provider      = google-beta
+  project       = var.project_id
+  idp_id        = "facebook.com"
+  enabled       = true
+  client_id     = var.facebook_app_id
+  client_secret = var.facebook_app_secret
 }

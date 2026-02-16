@@ -18,3 +18,14 @@ variable "project_id" {
   description = "The project ID to deploy to"
   type        = string
 }
+
+variable "facebook_app_id" {
+  description = "The Facebook App ID (from Meta for Developers)"
+  type        = string
+}
+
+variable "facebook_app_secret" {
+  description = "The Facebook App Secret (from Meta for Developers)"
+  type        = string
+  sensitive   = true
+}

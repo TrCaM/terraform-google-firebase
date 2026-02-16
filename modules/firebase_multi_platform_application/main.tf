@@ -14,25 +14,9 @@
  * limitations under the License.
  */
 
-resource "google_project_service" "firebase_apis" {
-  for_each = toset([
-    "firebase.googleapis.com",
-    "serviceusage.googleapis.com",
-    "cloudresourcemanager.googleapis.com",
-    "identitytoolkit.googleapis.com"
-  ])
-  project            = var.project_id
-  service            = each.key
-  disable_on_destroy = false
-}
-
 resource "google_firebase_project" "default" {
   provider = google-beta
   project  = var.project_id
-
-  depends_on = [
-    google_project_service.firebase_apis
-  ]
 }
 
 resource "google_firebase_web_app" "default" {

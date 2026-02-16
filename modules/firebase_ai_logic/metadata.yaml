@@ -32,6 +32,8 @@ spec:
     icon: assets/icon.png
   content:
     examples:
+      - name: firebase_auth_suite
+        location: examples/firebase_auth_suite
       - name: firebase_multi_platform_app
         location: examples/firebase_multi_platform_app
   interfaces:
@@ -52,6 +54,8 @@ spec:
           - roles/owner
     services:
       - cloudresourcemanager.googleapis.com
+      - firebase.googleapis.com
+      - identitytoolkit.googleapis.com
       - serviceusage.googleapis.com
     providerVersions:
       - source: hashicorp/google

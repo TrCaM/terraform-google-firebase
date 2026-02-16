@@ -14,6 +14,12 @@
  * limitations under the License.
  */
 
-resource "terraform_data" "placeholder" {
-  input = "firebase_auth placeholder"
+# Google IDP Configuration
+resource "google_identity_platform_default_supported_idp_config" "google" {
+  provider      = google-beta
+  project       = var.project_id
+  idp_id        = "google.com"
+  enabled       = true
+  client_id     = var.client_id
+  client_secret = var.client_secret
 }

@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-output "placeholder" {
-  description = "Placeholder output"
-  value       = terraform_data.placeholder.output
-}
-
-output "project_id" {
-  description = "The project ID"
-  value       = var.project_id
+# GitHub IDP Configuration
+resource "google_identity_platform_default_supported_idp_config" "github" {
+  provider      = google-beta
+  project       = var.project_id
+  idp_id        = "github.com"
+  enabled       = true
+  client_id     = var.client_id
+  client_secret = var.client_secret
 }
