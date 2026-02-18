@@ -32,6 +32,8 @@ spec:
     icon: assets/icon.png
   content:
     examples:
+      - name: firebase_ai_logic
+        location: examples/firebase_ai_logic
       - name: firebase_auth_suite
         location: examples/firebase_auth_suite
       - name: firebase_multi_platform_app
@@ -68,6 +70,9 @@ spec:
       - firebase.googleapis.com
       - identitytoolkit.googleapis.com
       - serviceusage.googleapis.com
+      - firebasevertexai.googleapis.com
+      - generativelanguage.googleapis.com
+      - aiplatform.googleapis.com
     providerVersions:
       - source: hashicorp/google
         version: ">= 5.0, < 8.0"

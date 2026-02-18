@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-variable "project_id" {
-  description = "The project ID to deploy to"
-  type        = string
+output "config_name" {
+  description = "The name of the AI Logic configuration."
+  value       = google_firebase_ai_logic_config.default.name
 }

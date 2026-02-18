@@ -14,6 +14,16 @@
  * limitations under the License.
  */
 
-resource "terraform_data" "placeholder" {
-  input = "firebase_ai_logic placeholder"
+terraform {
+  required_version = ">= 1.3"
+  required_providers {
+    google = {
+      source  = "hashicorp/google"
+      version = ">= 5.0, < 8.0"
+    }
+    google-beta = {
+      source  = "hashicorp/google-beta"
+      version = ">= 7.17.0, < 8.0"
+    }
+  }
 }

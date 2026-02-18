@@ -28,7 +28,10 @@ module "project" {
     "cloudresourcemanager.googleapis.com",
     "firebase.googleapis.com",
     "identitytoolkit.googleapis.com",
-    "serviceusage.googleapis.com"
+    "serviceusage.googleapis.com",
+    "firebasevertexai.googleapis.com",
+    "generativelanguage.googleapis.com",
+    "aiplatform.googleapis.com",
   ]
 
   deletion_policy = "DELETE"

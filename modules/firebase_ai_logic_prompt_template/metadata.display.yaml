@@ -15,19 +15,34 @@
 apiVersion: blueprints.cloud.google.com/v1alpha1
 kind: BlueprintMetadata
 metadata:
-  name: terraform-google-firebase-firebase-ai-logic-display
+  name: terraform-google-firebase-firebase-ai-logic-prompt-template-display
   annotations:
     config.kubernetes.io/local-config: "true"
 spec:
   info:
-    title: Firebase AI Logic Submodule
+    title: Firebase AI Logic Prompt Template Submodule
     source:
       repo: https://github.com/TrCaM/terraform-google-firebase.git
       sourceType: git
-      dir: /modules/firebase_ai_logic
+      dir: /modules/firebase_ai_logic_prompt_template
   ui:
     input:
       variables:
+        enable_lock:
+          name: enable_lock
+          title: Enable Lock
+        gcs_source:
+          name: gcs_source
+          title: Gcs Source
+        location:
+          name: location
+          title: Location
         project_id:
           name: project_id
           title: Project Id
+        template_id:
+          name: template_id
+          title: Template Id
+        template_string:
+          name: template_string
+          title: Template String

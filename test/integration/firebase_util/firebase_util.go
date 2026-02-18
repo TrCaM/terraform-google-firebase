@@ -126,3 +126,55 @@ func GetIdpConfigs(t *testing.T, projectId string, token string) []gjson.Result 
 
 	return gjson.ParseBytes(body).Get("defaultSupportedIdpConfigs").Array()
 }
+
+// GetAiLogicConfig retrieves the global AI Logic configuration for a project/location.
+func GetAiLogicConfig(t *testing.T, projectId string, location string, token string) gjson.Result {
+	url := fmt.Sprintf("https://firebasevertexai.googleapis.com/v1beta/projects/%s/locations/%s/config", projectId, location)
+	t.Logf("Fetching AI Logic config from: %s", url)
+
+	client := &http.Client{}
+	req, err := http.NewRequest("GET", url, nil)
+	assert.NoError(t, err, "Failed to create HTTP request")
+
+	req.Header.Add("Authorization", "Bearer "+token)
+	req.Header.Add("X-Goog-User-Project", projectId)
+
+	resp, err := client.Do(req)
+	assert.NoError(t, err, "HTTP request failed")
+	defer resp.Body.Close()
+
+	body, err := io.ReadAll(resp.Body)
+	assert.NoError(t, err, "Failed to read response body")
+
+	if resp.StatusCode != http.StatusOK {
+		t.Fatalf("API request failed with status %d: %s", resp.StatusCode, string(body))
+	}
+
+	return gjson.ParseBytes(body)
+}
+
+// GetAiLogicTemplates retrieves the list of prompt templates for original project/location.
+func GetAiLogicTemplates(t *testing.T, projectId string, location string, token string) []gjson.Result {
+	url := fmt.Sprintf("https://firebasevertexai.googleapis.com/v1beta/projects/%s/locations/%s/templates", projectId, location)
+	t.Logf("Fetching AI Logic templates from: %s", url)
+
+	client := &http.Client{}
+	req, err := http.NewRequest("GET", url, nil)
+	assert.NoError(t, err, "Failed to create HTTP request")
+
+	req.Header.Add("Authorization", "Bearer "+token)
+	req.Header.Add("X-Goog-User-Project", projectId)
+
+	resp, err := client.Do(req)
+	assert.NoError(t, err, "HTTP request failed")
+	defer resp.Body.Close()
+
+	body, err := io.ReadAll(resp.Body)
+	assert.NoError(t, err, "Failed to read response body")
+
+	if resp.StatusCode != http.StatusOK {
+		t.Fatalf("API request failed with status %d: %s", resp.StatusCode, string(body))
+	}
+
+	return gjson.ParseBytes(body).Get("templates").Array()
+}

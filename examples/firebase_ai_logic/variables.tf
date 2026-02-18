@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-output "placeholder" {
-  description = "Placeholder output"
-  value       = terraform_data.placeholder.output
+variable "project_id" {
+  description = "The ID of the project to deploy to."
+  type        = string
 }
 
-output "project_id" {
-  description = "The project ID"
-  value       = var.project_id
+variable "location" {
+  description = "The location for the AI Logic configuration."
+  type        = string
+  default     = "global"
 }
