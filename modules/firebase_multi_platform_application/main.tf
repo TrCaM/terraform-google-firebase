@@ -65,5 +65,3 @@ data "google_firebase_apple_app_config" "default" {
   project  = google_firebase_project.default.project
   app_id   = google_firebase_apple_app.default[0].app_id
 }
-
-# ADC Refresh Trigger r9
