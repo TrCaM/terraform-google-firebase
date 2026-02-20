@@ -15,19 +15,99 @@
 apiVersion: blueprints.cloud.google.com/v1alpha1
 kind: BlueprintMetadata
 metadata:
-  name: firebase-firebase-app-check-display
+  name: terraform-google-firebase-app-check-display
   annotations:
     config.kubernetes.io/local-config: "true"
 spec:
   info:
-    title: Firebase App Check Submodule
-    source:
-      repo: https://github.com/TrCaM/terraform-google-firebase.git
-      sourceType: git
-      dir: /modules/firebase_app_check
+    title: Firebase App Check Module
   ui:
     input:
       variables:
         project_id:
           name: project_id
-          title: Project Id
+          title: Project ID
+        service_id:
+          name: service_id
+          title: Protected Service
+          enumValueLabels:
+            - label: Firebase Authentication
+              value: identitytoolkit.googleapis.com
+            - label: Cloud Firestore
+              value: firestore.googleapis.com
+            - label: Firebase AI Logic
+              value: firebasevertexai.googleapis.com
+        enforcement_mode:
+          name: enforcement_mode
+          title: Enforcement Mode
+          enumValueLabels:
+            - label: Enforced
+              value: ENFORCED
+            - label: Unenforced (Testing)
+              value: UNENFORCED
+        apps:
+          name: apps
+          title: App Configurations
+          properties:
+            android:
+              name: android
+              title: Android App
+              properties:
+                app_id:
+                  name: app_id
+                  title: Firebase App ID
+                token_ttl:
+                  name: token_ttl
+                  title: Token TTL
+            apple:
+              name: apple
+              title: Apple App (iOS/Apple TV/macOS)
+              properties:
+                app_id:
+                  name: app_id
+                  title: Firebase App ID
+                token_ttl:
+                  name: token_ttl
+                  title: Token TTL
+                app_attest:
+                  name: app_attest
+                  title: Enable App Attest
+                device_check:
+                  name: device_check
+                  title: Device Check Config
+                  properties:
+                    private_key:
+                      name: private_key
+                      title: Private Key
+                    key_id:
+                      name: key_id
+                      title: Key ID
+            web:
+              name: web
+              title: Web App
+              properties:
+                app_id:
+                  name: app_id
+                  title: Firebase App ID
+                site_key:
+                  name: site_key
+                  title: reCAPTCHA Enterprise Site Key
+                recaptcha_v3_secret:
+                  name: recaptcha_v3_secret
+                  title: reCAPTCHA v3 Site Secret
+                token_ttl:
+                  name: token_ttl
+                  title: Token TTL
+        debug_tokens:
+          name: debug_tokens
+          title: Debug Tokens
+          properties:
+            app_id:
+              name: app_id
+              title: Firebase App ID
+            display_name:
+              name: display_name
+              title: Token Name (Display)
+            token:
+              name: token
+              title: Token Value
