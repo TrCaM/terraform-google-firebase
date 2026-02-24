@@ -42,13 +42,20 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| project\_id | The project ID to deploy to | `string` | n/a | yes |
+| android\_apps | List of Android apps to configure for App Check. | <pre>list(object({<br>    app_id    = string<br>    token_ttl = optional(string)<br>  }))</pre> | `[]` | no |
+| apple\_apps | List of Apple apps to configure for App Check. | <pre>list(object({<br>    app_id     = string<br>    token_ttl  = optional(string)<br>    app_attest = optional(bool)<br>    device_check = optional(object({<br>      private_key = string<br>      key_id      = string<br>    }))<br>  }))</pre> | `[]` | no |
+| debug\_tokens | List of debug tokens to create for specific apps. | <pre>list(object({<br>    app_id       = string<br>    display_name = string<br>    token        = string<br>  }))</pre> | `[]` | no |
+| enforcement\_mode | The enforcement mode for the service. Default is ENFORCED. | `string` | `"ENFORCED"` | no |
+| project\_id | The project ID to deploy to. | `string` | n/a | yes |
+| service\_ids | The service IDs for which to enable App Check enforcement (e.g., identitytoolkit.googleapis.com). | `list(string)` | `[]` | no |
+| web\_apps | List of Web apps to configure for App Check. | <pre>list(object({<br>    app_id              = string<br>    site_key            = optional(string)<br>    recaptcha_v3_secret = optional(string)<br>    token_ttl           = optional(string)<br>  }))</pre> | `[]` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| placeholder | Placeholder output |
-| project\_id | The project ID |
+| enabled\_app\_ids | A sorted list of all unique Firebase App IDs configured for App Check in this module. |
+| enabled\_service\_ids | The list of service IDs for which App Check enforcement is enabled. |
+| project\_id | The project ID. |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

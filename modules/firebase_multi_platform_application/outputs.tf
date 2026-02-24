@@ -45,3 +45,26 @@ output "ios_config" {
   value       = try(data.google_firebase_apple_app_config.default[0].config_file_contents, null)
   sensitive   = true
 }
+
+output "app_check_bundle" {
+  description = "A structured object containing verified app IDs and metadata tailored for the Firebase App Check module."
+  value = {
+    android = try(var.apps.android_app.enable_app_check, false) ? {
+      app_id        = try(google_firebase_android_app.default[0].app_id, null)
+      sha256_hashes = try(var.apps.android_app.sha256_hashes, null)
+    } : null
+
+    apple = try(var.apps.apple_app.enable_app_check, false) ? {
+      app_id           = try(google_firebase_apple_app.default[0].app_id, null)
+      team_id          = try(var.apps.apple_app.team_id, null)
+      device_check_key = try(var.apps.apple_app.device_check_key, null)
+      device_check_id  = try(var.apps.apple_app.device_check_id, null)
+      app_attest       = try(var.apps.apple_app.team_id, null) != null ? true : false
+    } : null
+
+    web = try(var.apps.web_app.enable_app_check, false) ? {
+      app_id             = try(google_firebase_web_app.default[0].app_id, null)
+      recaptcha_site_key = try(var.apps.web_app.recaptcha_site_key, null)
+    } : null
+  }
+}

@@ -37,9 +37,27 @@ spec:
         apps:
           name: apps
           title: Apps
+        device_check_id:
+          name: device_check_id
+          title: DeviceCheck Key ID (Apple)
+        device_check_key:
+          name: device_check_key
+          title: DeviceCheck Private Key (Apple)
+        enable_app_check:
+          name: enable_app_check
+          title: Enable App Check
         project_id:
           name: project_id
           title: Project Id
+        recaptcha_site_key:
+          name: recaptcha_site_key
+          title: reCAPTCHA Enterprise Site Key (Web)
+        sha256_hashes:
+          name: sha256_hashes
+          title: SHA256 Certificate Hashes (Android)
+        team_id:
+          name: team_id
+          title: Developer Team ID (Apple)
         web_app:
           name: web_app
           title: Web App

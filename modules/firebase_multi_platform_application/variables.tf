@@ -19,24 +19,44 @@ variable "project_id" {
   type        = string
 }
 
-
 variable "apps" {
   description = "Configuration for Firebase apps."
   type = object({
     web_app = optional(object({
-      display_name = string
-      api_key_id   = optional(string)
+      display_name       = string
+      api_key_id         = optional(string)
+      enable_app_check   = optional(bool, false)
+      recaptcha_site_key = optional(string)
     }))
     android_app = optional(object({
-      package_name  = string
-      display_name  = optional(string)
-      sha256_hashes = optional(list(string))
+      package_name     = string
+      display_name     = optional(string)
+      sha256_hashes    = optional(list(string))
+      enable_app_check = optional(bool, false)
     }))
     apple_app = optional(object({
-      bundle_id    = string
-      display_name = optional(string)
-      team_id      = optional(string)
+      bundle_id        = string
+      display_name     = optional(string)
+      team_id          = optional(string)
+      enable_app_check = optional(bool, false)
+      device_check_key = optional(string)
+      device_check_id  = optional(string)
     }))
   })
   default = {}
+
+  validation {
+    condition     = var.apps.web_app == null || !try(var.apps.web_app.enable_app_check, false) || try(var.apps.web_app.recaptcha_site_key, null) != null
+    error_message = "If App Check is enabled for the Web App, 'recaptcha_site_key' must be provided."
+  }
+
+  validation {
+    condition     = var.apps.android_app == null || !try(var.apps.android_app.enable_app_check, false) || length(try(var.apps.android_app.sha256_hashes, [])) > 0
+    error_message = "If App Check is enabled for the Android App, at least one 'sha256_hashes' value must be provided."
+  }
+
+  validation {
+    condition     = var.apps.apple_app == null || !try(var.apps.apple_app.enable_app_check, false) || try(var.apps.apple_app.team_id, null) != null
+    error_message = "If App Check is enabled for the Apple App, 'team_id' must be provided."
+  }
 }

@@ -15,59 +15,60 @@
  */
 
 # Service Enforcement
-resource "google_firebase_app_check_service_config" "services" {
+resource "google_firebase_app_check_service_config" "default" {
+  for_each         = toset(var.service_ids)
   provider         = google-beta
   project          = var.project_id
-  service_id       = var.service_id
+  service_id       = each.value
   enforcement_mode = var.enforcement_mode
 }
 
 # Play Integrity (Android)
 resource "google_firebase_app_check_play_integrity_config" "default" {
-  count     = var.apps.android != null ? 1 : 0
+  for_each  = { for app in var.android_apps : app.app_id => app if app != null }
   provider  = google-beta
   project   = var.project_id
-  app_id    = var.apps.android.app_id
-  token_ttl = var.apps.android.token_ttl
+  app_id    = each.value.app_id
+  token_ttl = each.value.token_ttl
 }
 
 # App Attest (Apple)
 resource "google_firebase_app_check_app_attest_config" "default" {
-  count     = (var.apps.apple != null && try(var.apps.apple.app_attest, false) == true) ? 1 : 0
+  for_each  = { for app in var.apple_apps : app.app_id => app if app != null && try(app.app_attest, false) == true }
   provider  = google-beta
   project   = var.project_id
-  app_id    = var.apps.apple.app_id
-  token_ttl = var.apps.apple.token_ttl
+  app_id    = each.value.app_id
+  token_ttl = each.value.token_ttl
 }
 
 # Device Check (Apple)
 resource "google_firebase_app_check_device_check_config" "default" {
-  count       = (var.apps.apple != null && var.apps.apple.device_check != null) ? 1 : 0
+  for_each    = { for app in var.apple_apps : app.app_id => app if app != null && app.device_check != null }
   provider    = google-beta
   project     = var.project_id
-  app_id      = var.apps.apple.app_id
-  private_key = var.apps.apple.device_check.private_key
-  key_id      = var.apps.apple.device_check.key_id
-  token_ttl   = var.apps.apple.token_ttl
+  app_id      = each.value.app_id
+  private_key = each.value.device_check.private_key
+  key_id      = each.value.device_check.key_id
+  token_ttl   = each.value.token_ttl
 }
 
 # reCAPTCHA Enterprise (Web)
 resource "google_firebase_app_check_recaptcha_enterprise_config" "default" {
-  count    = (var.apps.web != null && var.apps.web.site_key != null) ? 1 : 0
+  for_each = { for app in var.web_apps : app.app_id => app if app != null && app.site_key != null }
   provider = google-beta
   project  = var.project_id
-  app_id   = var.apps.web.app_id
-  site_key = var.apps.web.site_key
+  app_id   = each.value.app_id
+  site_key = each.value.site_key
 }
 
 # reCAPTCHA v3 (Web)
 resource "google_firebase_app_check_recaptcha_v3_config" "default" {
-  count       = (var.apps.web != null && var.apps.web.recaptcha_v3_secret != null) ? 1 : 0
+  for_each    = { for app in var.web_apps : app.app_id => app if app != null && app.recaptcha_v3_secret != null }
   provider    = google-beta
   project     = var.project_id
-  app_id      = var.apps.web.app_id
-  site_secret = var.apps.web.recaptcha_v3_secret
-  token_ttl   = var.apps.web.token_ttl
+  app_id      = each.value.app_id
+  site_secret = each.value.recaptcha_v3_secret
+  token_ttl   = each.value.token_ttl
 }
 
 # Debug Tokens

@@ -23,8 +23,8 @@ provider "google-beta" {
 }
 
 module "multi_platform_app" {
-  source       = "../../modules/firebase_multi_platform_application"
-  project_id   = var.project_id
+  source     = "../../modules/firebase_multi_platform_application"
+  project_id = var.project_id
 
   apps = {
     web_app = {

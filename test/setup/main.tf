@@ -27,6 +27,7 @@ module "project" {
   activate_apis = [
     "cloudresourcemanager.googleapis.com",
     "firebase.googleapis.com",
+    "firebaseappcheck.googleapis.com",
     "identitytoolkit.googleapis.com",
     "serviceusage.googleapis.com",
     "firebasevertexai.googleapis.com",

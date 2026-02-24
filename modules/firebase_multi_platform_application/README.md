@@ -36,7 +36,7 @@ module "firebase_app" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| apps | Configuration for Firebase apps. | <pre>object({<br>    web_app = optional(object({<br>      display_name = string<br>      api_key_id   = optional(string)<br>    }))<br>    android_app = optional(object({<br>      package_name  = string<br>      display_name  = optional(string)<br>      sha256_hashes = optional(list(string))<br>    }))<br>    apple_app = optional(object({<br>      bundle_id    = string<br>      display_name = optional(string)<br>      team_id      = optional(string)<br>    }))<br>  })</pre> | `{}` | no |
+| apps | Configuration for Firebase apps. | <pre>object({<br>    web_app = optional(object({<br>      display_name       = string<br>      api_key_id         = optional(string)<br>      enable_app_check   = optional(bool, false)<br>      recaptcha_site_key = optional(string)<br>    }))<br>    android_app = optional(object({<br>      package_name     = string<br>      display_name     = optional(string)<br>      sha256_hashes    = optional(list(string))<br>      enable_app_check = optional(bool, false)<br>    }))<br>    apple_app = optional(object({<br>      bundle_id        = string<br>      display_name     = optional(string)<br>      team_id          = optional(string)<br>      enable_app_check = optional(bool, false)<br>      device_check_key = optional(string)<br>      device_check_id  = optional(string)<br>    }))<br>  })</pre> | `{}` | no |
 | project\_id | The GCP project ID to initialize Firebase in. | `string` | n/a | yes |
 
 ## Outputs
@@ -44,6 +44,7 @@ module "firebase_app" {
 | Name | Description |
 |------|-------------|
 | android\_config | The google-services.json content for the Android App. |
+| app\_check\_bundle | A structured object containing verified app IDs and metadata tailored for the Firebase App Check module. |
 | app\_ids | Map of platform names to their respective Firebase App IDs. |
 | ios\_config | The GoogleService-Info.plist content for the Apple App. |
 | project\_id | The project ID. |

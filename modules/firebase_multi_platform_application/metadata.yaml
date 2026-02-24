@@ -25,7 +25,6 @@ spec:
       repo: https://github.com/TrCaM/terraform-google-firebase.git
       sourceType: git
       dir: /modules/firebase_multi_platform_application
-    version: 12.3.0
     actuationTool:
       flavor: Terraform
       version: ">= 1.3"
@@ -50,18 +49,24 @@ spec:
         varType: |-
           object({
               web_app = optional(object({
-                display_name = string
-                api_key_id   = optional(string)
+                display_name       = string
+                api_key_id         = optional(string)
+                enable_app_check   = optional(bool, false)
+                recaptcha_site_key = optional(string)
               }))
               android_app = optional(object({
-                package_name  = string
-                display_name  = optional(string)
-                sha256_hashes = optional(list(string))
+                package_name     = string
+                display_name     = optional(string)
+                sha256_hashes    = optional(list(string))
+                enable_app_check = optional(bool, false)
               }))
               apple_app = optional(object({
-                bundle_id    = string
-                display_name = optional(string)
-                team_id      = optional(string)
+                bundle_id        = string
+                display_name     = optional(string)
+                team_id          = optional(string)
+                enable_app_check = optional(bool, false)
+                device_check_key = optional(string)
+                device_check_id  = optional(string)
               }))
             })
         defaultValue: {}
@@ -69,12 +74,31 @@ spec:
       - name: android_config
         description: The google-services.json content for the Android App.
         type: string
+      - name: app_check_bundle
+        description: A structured object containing verified app IDs and metadata tailored for the Firebase App Check module.
+        type:
+          - object
+          - android:
+              - object
+              - app_id: dynamic
+                sha256_hashes: dynamic
+            apple:
+              - object
+              - app_attest: bool
+                app_id: dynamic
+                device_check_id: dynamic
+                device_check_key: dynamic
+                team_id: dynamic
+            web:
+              - object
+              - app_id: dynamic
+                recaptcha_site_key: string
       - name: app_ids
         description: Map of platform names to their respective Firebase App IDs.
         type:
           - object
-          - android: string
-            ios: string
+          - android: dynamic
+            ios: dynamic
             web: string
       - name: ios_config
         description: The GoogleService-Info.plist content for the Apple App.
@@ -104,6 +128,7 @@ spec:
     services:
       - cloudresourcemanager.googleapis.com
       - firebase.googleapis.com
+      - firebaseappcheck.googleapis.com
       - identitytoolkit.googleapis.com
       - serviceusage.googleapis.com
       - firebasevertexai.googleapis.com

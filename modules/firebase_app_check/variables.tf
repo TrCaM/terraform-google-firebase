@@ -19,9 +19,10 @@ variable "project_id" {
   type        = string
 }
 
-variable "service_id" {
-  description = "The service ID for which to enable App Check enforcement (e.g., firestore.googleapis.com)."
-  type        = string
+variable "service_ids" {
+  description = "The service IDs for which to enable App Check enforcement (e.g., identitytoolkit.googleapis.com)."
+  type        = list(string)
+  default     = []
 }
 
 variable "enforcement_mode" {
@@ -30,30 +31,38 @@ variable "enforcement_mode" {
   default     = "ENFORCED"
 }
 
-variable "apps" {
-  description = "Configurations for apps to be protected by App Check. "
-  type = object({
-    android = optional(object({
-      app_id    = string
-      token_ttl = optional(string)
+variable "android_apps" {
+  description = "List of Android apps to configure for App Check."
+  type = list(object({
+    app_id    = string
+    token_ttl = optional(string)
+  }))
+  default = []
+}
+
+variable "apple_apps" {
+  description = "List of Apple apps to configure for App Check."
+  type = list(object({
+    app_id     = string
+    token_ttl  = optional(string)
+    app_attest = optional(bool)
+    device_check = optional(object({
+      private_key = string
+      key_id      = string
     }))
-    apple = optional(object({
-      app_id       = string
-      token_ttl    = optional(string)
-      app_attest   = optional(bool)        # If true, configures App Attest
-      device_check = optional(object({    # If provided, configures Device Check
-        private_key = string
-        key_id      = string
-      }))
-    }))
-    web = optional(object({
-      app_id               = string
-      site_key             = optional(string) # For reCAPTCHA Enterprise
-      recaptcha_v3_secret  = optional(string) # If provided, configures reCAPTCHA v3
-      token_ttl            = optional(string)
-    }))
-  })
-  default = {}
+  }))
+  default = []
+}
+
+variable "web_apps" {
+  description = "List of Web apps to configure for App Check."
+  type = list(object({
+    app_id              = string
+    site_key            = optional(string)
+    recaptcha_v3_secret = optional(string)
+    token_ttl           = optional(string)
+  }))
+  default = []
 }
 
 variable "debug_tokens" {
