@@ -51,7 +51,7 @@ variable "apps" {
   }
 
   validation {
-    condition     = var.apps.android_app == null || !try(var.apps.android_app.enable_app_check, false) || length(try(var.apps.android_app.sha256_hashes, [])) > 0
+    condition     = var.apps.android_app == null || !try(var.apps.android_app.enable_app_check, false) || length(coalesce(var.apps.android_app.sha256_hashes, [])) > 0
     error_message = "If App Check is enabled for the Android App, at least one 'sha256_hashes' value must be provided."
   }
 
