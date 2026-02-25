@@ -23,19 +23,19 @@ variable "apps" {
   description = "Configuration for Firebase apps."
   type = object({
     web_app = optional(object({
-      display_name       = string
+      display_name       = optional(string)
       api_key_id         = optional(string)
       enable_app_check   = optional(bool, false)
       recaptcha_site_key = optional(string)
     }))
     android_app = optional(object({
-      package_name     = string
+      package_name     = optional(string)
       display_name     = optional(string)
       sha256_hashes    = optional(list(string))
       enable_app_check = optional(bool, false)
     }))
     apple_app = optional(object({
-      bundle_id        = string
+      bundle_id        = optional(string)
       display_name     = optional(string)
       team_id          = optional(string)
       enable_app_check = optional(bool, false)
