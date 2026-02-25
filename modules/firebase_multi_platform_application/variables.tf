@@ -25,20 +25,20 @@ variable "apps" {
     web_app = optional(object({
       display_name       = optional(string)
       api_key_id         = optional(string)
-      enable_app_check   = optional(bool, false)
+      enable_app_check   = optional(bool)
       recaptcha_site_key = optional(string)
     }))
     android_app = optional(object({
       package_name     = optional(string)
       display_name     = optional(string)
       sha256_hashes    = optional(list(string))
-      enable_app_check = optional(bool, false)
+      enable_app_check = optional(bool)
     }))
     apple_app = optional(object({
       bundle_id        = optional(string)
       display_name     = optional(string)
       team_id          = optional(string)
-      enable_app_check = optional(bool, false)
+      enable_app_check = optional(bool)
       device_check_key = optional(string)
       device_check_id  = optional(string)
     }))
@@ -46,17 +46,17 @@ variable "apps" {
   default = {}
 
   validation {
-    condition     = var.apps.web_app == null || !try(var.apps.web_app.enable_app_check, false) || try(var.apps.web_app.recaptcha_site_key, null) != null
+    condition     = var.apps.web_app == null || coalesce(var.apps.web_app.enable_app_check, false) == false || try(var.apps.web_app.recaptcha_site_key, null) != null
     error_message = "If App Check is enabled for the Web App, 'recaptcha_site_key' must be provided."
   }
 
   validation {
-    condition     = var.apps.android_app == null || !try(var.apps.android_app.enable_app_check, false) || length(coalesce(var.apps.android_app.sha256_hashes, [])) > 0
+    condition     = var.apps.android_app == null || coalesce(var.apps.android_app.enable_app_check, false) == false || length(coalesce(var.apps.android_app.sha256_hashes, [])) > 0
     error_message = "If App Check is enabled for the Android App, at least one 'sha256_hashes' value must be provided."
   }
 
   validation {
-    condition     = var.apps.apple_app == null || !try(var.apps.apple_app.enable_app_check, false) || try(var.apps.apple_app.team_id, null) != null
+    condition     = var.apps.apple_app == null || coalesce(var.apps.apple_app.enable_app_check, false) == false || try(var.apps.apple_app.team_id, null) != null
     error_message = "If App Check is enabled for the Apple App, 'team_id' must be provided."
   }
 }

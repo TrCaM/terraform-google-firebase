@@ -49,22 +49,22 @@ output "ios_config" {
 output "app_check_bundle" {
   description = "A structured object containing verified app IDs and metadata tailored for the Firebase App Check module."
   value = {
-    android = try(var.apps.android_app.enable_app_check, false) && length(google_firebase_android_app.default) > 0 ? [{
+    android = coalesce(try(var.apps.android_app.enable_app_check, false), false) && length(google_firebase_android_app.default) > 0 ? [{
       app_id    = try(google_firebase_android_app.default[0].app_id, null)
       token_ttl = null
     }] : []
 
-    apple = try(var.apps.apple_app.enable_app_check, false) && length(google_firebase_apple_app.default) > 0 ? [{
-      app_id           = try(google_firebase_apple_app.default[0].app_id, null)
-      token_ttl        = null
-      app_attest       = try(var.apps.apple_app.team_id, null) != null ? true : null
-      device_check     = try(var.apps.apple_app.device_check_key, null) != null && try(var.apps.apple_app.device_check_id, null) != null ? {
+    apple = coalesce(try(var.apps.apple_app.enable_app_check, false), false) && length(google_firebase_apple_app.default) > 0 ? [{
+      app_id     = try(google_firebase_apple_app.default[0].app_id, null)
+      token_ttl  = null
+      app_attest = try(var.apps.apple_app.team_id, null) != null ? true : null
+      device_check = try(var.apps.apple_app.device_check_key, null) != null && try(var.apps.apple_app.device_check_id, null) != null ? {
         private_key = var.apps.apple_app.device_check_key
         key_id      = var.apps.apple_app.device_check_id
       } : null
     }] : []
 
-    web = try(var.apps.web_app.enable_app_check, false) && length(google_firebase_web_app.default) > 0 ? [{
+    web = coalesce(try(var.apps.web_app.enable_app_check, false), false) && length(google_firebase_web_app.default) > 0 ? [{
       app_id              = try(google_firebase_web_app.default[0].app_id, null)
       site_key            = try(var.apps.web_app.recaptcha_site_key, null)
       recaptcha_v3_secret = null
