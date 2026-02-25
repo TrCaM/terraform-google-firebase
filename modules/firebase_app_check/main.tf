@@ -25,7 +25,7 @@ resource "google_firebase_app_check_service_config" "default" {
 
 # Play Integrity (Android)
 resource "google_firebase_app_check_play_integrity_config" "default" {
-  for_each  = { for i, app in var.android_apps : tostring(i) => app if app != null && try(app.app_id, "") != "" }
+  for_each  = { for i, app in var.android_apps : tostring(i) => app if app != null }
   provider  = google-beta
   project   = var.project_id
   app_id    = each.value.app_id
@@ -34,7 +34,7 @@ resource "google_firebase_app_check_play_integrity_config" "default" {
 
 # App Attest (Apple)
 resource "google_firebase_app_check_app_attest_config" "default" {
-  for_each  = { for i, app in var.apple_apps : tostring(i) => app if app != null && try(app.app_id, "") != "" && try(app.app_attest, false) == true }
+  for_each  = { for i, app in var.apple_apps : tostring(i) => app if app != null && try(app.app_attest, false) == true }
   provider  = google-beta
   project   = var.project_id
   app_id    = each.value.app_id
@@ -43,7 +43,7 @@ resource "google_firebase_app_check_app_attest_config" "default" {
 
 # Device Check (Apple)
 resource "google_firebase_app_check_device_check_config" "default" {
-  for_each    = { for i, app in var.apple_apps : tostring(i) => app if app != null && try(app.app_id, "") != "" && try(app.device_check, null) != null }
+  for_each    = { for i, app in var.apple_apps : tostring(i) => app if app != null && try(app.device_check, null) != null }
   provider    = google-beta
   project     = var.project_id
   app_id      = each.value.app_id
@@ -54,7 +54,7 @@ resource "google_firebase_app_check_device_check_config" "default" {
 
 # reCAPTCHA Enterprise (Web)
 resource "google_firebase_app_check_recaptcha_enterprise_config" "default" {
-  for_each = { for i, app in var.web_apps : tostring(i) => app if app != null && try(app.app_id, "") != "" && try(app.site_key, null) != null }
+  for_each = { for i, app in var.web_apps : tostring(i) => app if app != null && try(app.site_key, null) != null }
   provider = google-beta
   project  = var.project_id
   app_id   = each.value.app_id
@@ -63,7 +63,7 @@ resource "google_firebase_app_check_recaptcha_enterprise_config" "default" {
 
 # reCAPTCHA v3 (Web)
 resource "google_firebase_app_check_recaptcha_v3_config" "default" {
-  for_each    = { for i, app in var.web_apps : tostring(i) => app if app != null && try(app.app_id, "") != "" && try(app.recaptcha_v3_secret, null) != null }
+  for_each    = { for i, app in var.web_apps : tostring(i) => app if app != null && try(app.recaptcha_v3_secret, null) != null }
   provider    = google-beta
   project     = var.project_id
   app_id      = each.value.app_id
