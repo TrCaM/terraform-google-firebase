@@ -25,7 +25,7 @@ spec:
       repo: https://github.com/TrCaM/terraform-google-firebase.git
       sourceType: git
       dir: /modules/firebase_multi_platform_application
-    version: 12.7.0
+    version: 12.8.0
     actuationTool:
       flavor: Terraform
       version: ">= 1.3"
@@ -82,22 +82,25 @@ spec:
           - android:
               - list
               - - object
-                - app_id: string
-                  token_ttl: string
+                - app_id: dynamic
+                  token_ttl: dynamic
             apple:
               - list
               - - object
                 - app_attest: bool
-                  app_id: string
-                  device_check_id: string
-                  device_check_key: string
-                  team_id: string
-                  token_ttl: string
+                  app_id: dynamic
+                  device_check:
+                    - object
+                    - key_id: dynamic
+                      private_key: dynamic
+                  token_ttl: dynamic
             web:
               - list
               - - object
-                - app_id: string
-                  recaptcha_site_key: string
+                - app_id: dynamic
+                  recaptcha_v3_secret: dynamic
+                  site_key: string
+                  token_ttl: dynamic
       - name: app_ids
         description: Map of platform names to their respective Firebase App IDs.
         type:
