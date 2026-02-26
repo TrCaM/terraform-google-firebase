@@ -19,6 +19,12 @@ variable "project_id" {
   type        = string
 }
 
+variable "enable_auth_management" {
+  description = "Allows skipping config creation."
+  type        = bool
+  default     = true
+}
+
 variable "auth_config" {
   description = "Core configuration for Firebase Identity Platform."
   type = object({

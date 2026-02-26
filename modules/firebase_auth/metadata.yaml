@@ -45,6 +45,10 @@ spec:
         description: The GCP project ID to initialize Firebase Auth in.
         varType: string
         required: true
+      - name: enable_auth_management
+        description: Allows skipping config creation.
+        varType: bool
+        defaultValue: true
       - name: auth_config
         description: Core configuration for Firebase Identity Platform.
         varType: |-

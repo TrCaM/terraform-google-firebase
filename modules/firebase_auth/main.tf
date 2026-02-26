@@ -16,6 +16,7 @@
 
 # Base Identity Platform Configuration
 resource "google_identity_platform_config" "auth" {
+  count    = var.enable_auth_management ? 1 : 0
   provider = google-beta
   project  = var.project_id
 

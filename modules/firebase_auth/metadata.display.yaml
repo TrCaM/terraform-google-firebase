@@ -54,32 +54,22 @@ spec:
           name: auth_providers
           title: Auth Providers
           properties:
-            google:
-              name: google
-              title: Google Provider
-              properties:
-                client_id:
-                  name: client_id
-                  title: Client ID
-                client_secret:
-                  name: client_secret
-                  title: Client Secret
             apple:
               name: apple
               title: Apple Provider
               properties:
+                client_secret:
+                  name: client_secret
+                  title: Client Secret
+                key_id:
+                  name: key_id
+                  title: Key ID
                 service_id:
                   name: service_id
                   title: Service ID
                 team_id:
                   name: team_id
                   title: Team ID
-                key_id:
-                  name: key_id
-                  title: Key ID
-                client_secret:
-                  name: client_secret
-                  title: Client Secret
             facebook:
               name: facebook
               title: Facebook Provider
@@ -100,6 +90,19 @@ spec:
                 client_secret:
                   name: client_secret
                   title: Client Secret
+            google:
+              name: google
+              title: Google Provider
+              properties:
+                client_id:
+                  name: client_id
+                  title: Client ID
+                client_secret:
+                  name: client_secret
+                  title: Client Secret
+        enable_auth_management:
+          name: enable_auth_management
+          title: Enable Auth Management
         project_id:
           name: project_id
           title: Project Id
