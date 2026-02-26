@@ -54,11 +54,11 @@ output "app_check_bundle" {
       token_ttl = null
     }] : []
 
-    apple = coalesce(try(var.apps.apple_app.register_app_check, false), false) && length(google_firebase_apple_app.default) > 0 ? [{
+    apple = (coalesce(try(var.apps.apple_app.register_app_check_app_attest, false), false) || coalesce(try(var.apps.apple_app.register_app_check_device_check, false), false)) && length(google_firebase_apple_app.default) > 0 ? [{
       app_id     = try(google_firebase_apple_app.default[0].app_id, null)
       token_ttl  = null
-      app_attest = try(var.apps.apple_app.team_id, null) != null ? true : null
-      device_check = try(var.apps.apple_app.device_check_key, null) != null && try(var.apps.apple_app.device_check_id, null) != null ? {
+      app_attest = coalesce(try(var.apps.apple_app.register_app_check_app_attest, false), false) ? true : null
+      device_check = coalesce(try(var.apps.apple_app.register_app_check_device_check, false), false) && try(var.apps.apple_app.device_check_key, null) != null && try(var.apps.apple_app.device_check_id, null) != null ? {
         private_key = var.apps.apple_app.device_check_key
         key_id      = var.apps.apple_app.device_check_id
       } : null

@@ -77,19 +77,18 @@ spec:
         enforcement_mode:
           name: enforcement_mode
           title: Enforcement Mode
-          level: 1
           enumValueLabels:
             - label: Enforced
               value: ENFORCED
             - label: Unenforced (Testing)
               value: UNENFORCED
+          level: 1
         project_id:
           name: project_id
           title: Project ID
         service_ids:
           name: service_ids
           title: Protected Services
-          level: 1
           enumValueLabels:
             - label: Firebase Authentication
               value: identitytoolkit.googleapis.com
@@ -97,6 +96,7 @@ spec:
               value: firestore.googleapis.com
             - label: Firebase AI Logic
               value: firebaseml.googleapis.com
+          level: 1
         web_apps:
           name: web_apps
           title: Web App Configurations

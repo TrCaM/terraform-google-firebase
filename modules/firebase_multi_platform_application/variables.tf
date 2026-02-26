@@ -35,12 +35,13 @@ variable "apps" {
       register_app_check = optional(bool)
     }))
     apple_app = optional(object({
-      bundle_id          = optional(string)
-      display_name       = optional(string)
-      team_id            = optional(string)
-      register_app_check = optional(bool)
-      device_check_key   = optional(string)
-      device_check_id    = optional(string)
+      bundle_id                       = optional(string)
+      display_name                    = optional(string)
+      team_id                         = optional(string)
+      register_app_check_app_attest   = optional(bool)
+      register_app_check_device_check = optional(bool)
+      device_check_key                = optional(string)
+      device_check_id                 = optional(string)
     }))
   })
   default = {}
@@ -56,7 +57,7 @@ variable "apps" {
   }
 
   validation {
-    condition     = var.apps.apple_app == null || try(var.apps.apple_app.register_app_check, false) == false || try(var.apps.apple_app.team_id, null) != null
-    error_message = "If App Check is enabled for the Apple App, 'team_id' must be provided."
+    condition     = var.apps.apple_app == null || (try(var.apps.apple_app.register_app_check_app_attest, false) == false && try(var.apps.apple_app.register_app_check_device_check, false) == false) || try(var.apps.apple_app.team_id, null) != null
+    error_message = "If App Check (App Attest or DeviceCheck) is enabled for the Apple App, 'team_id' must be provided."
   }
 }
