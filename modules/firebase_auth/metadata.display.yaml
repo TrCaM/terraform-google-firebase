@@ -34,9 +34,11 @@ spec:
         auth_config:
           name: auth_config
           title: Auth Config
+          level: 1
         auth_providers:
           name: auth_providers
           title: Auth Providers
+          level: 1
         facebook:
           name: facebook
           title: Facebook Provider
@@ -46,6 +48,7 @@ spec:
         google:
           name: google
           title: Google Provider
+          level: 1
         project_id:
           name: project_id
           title: Project Id

@@ -77,6 +77,7 @@ spec:
         enforcement_mode:
           name: enforcement_mode
           title: Enforcement Mode
+          level: 1
           enumValueLabels:
             - label: Enforced
               value: ENFORCED
@@ -88,6 +89,7 @@ spec:
         service_ids:
           name: service_ids
           title: Protected Services
+          level: 1
           enumValueLabels:
             - label: Firebase Authentication
               value: identitytoolkit.googleapis.com
