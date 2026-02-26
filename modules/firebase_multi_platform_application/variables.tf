@@ -47,17 +47,17 @@ variable "apps" {
   default = {}
 
   validation {
-    condition     = var.apps.web_app == null || try(var.apps.web_app.register_app_check, false) == false || try(var.apps.web_app.recaptcha_site_key, null) != null
+    condition     = var.apps.web_app == null || coalesce(var.apps.web_app.register_app_check, false) == false || var.apps.web_app.recaptcha_site_key != null
     error_message = "If App Check is enabled for the Web App, 'recaptcha_site_key' must be provided."
   }
 
   validation {
-    condition     = var.apps.android_app == null || try(var.apps.android_app.register_app_check, false) == false || length(try(var.apps.android_app.sha256_hashes, [])) > 0
+    condition     = var.apps.android_app == null || coalesce(var.apps.android_app.register_app_check, false) == false || length(coalesce(var.apps.android_app.sha256_hashes, [])) > 0
     error_message = "If App Check is enabled for the Android App, at least one 'sha256_hashes' value must be provided."
   }
 
   validation {
-    condition     = var.apps.apple_app == null || (try(var.apps.apple_app.register_app_check_app_attest, false) == false && try(var.apps.apple_app.register_app_check_device_check, false) == false) || try(var.apps.apple_app.team_id, null) != null
+    condition     = var.apps.apple_app == null || (coalesce(var.apps.apple_app.register_app_check_app_attest, false) == false && coalesce(var.apps.apple_app.register_app_check_device_check, false) == false) || var.apps.apple_app.team_id != null
     error_message = "If App Check (App Attest or DeviceCheck) is enabled for the Apple App, 'team_id' must be provided."
   }
 }

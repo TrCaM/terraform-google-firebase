@@ -28,27 +28,78 @@ spec:
   ui:
     input:
       variables:
-        apple:
-          name: apple
-          title: Apple Provider
         auth_config:
           name: auth_config
           title: Auth Config
-          level: 1
+          properties:
+            allow_duplicate_emails:
+              name: allow_duplicate_emails
+              title: Allow Duplicate Emails
+            anonymous_enabled:
+              name: anonymous_enabled
+              title: Enable Anonymous Auth
+            email_enabled:
+              name: email_enabled
+              title: Enable Email/Password Auth
+            email_password_required:
+              name: email_password_required
+              title: Require Email/Password
+            phone_enabled:
+              name: phone_enabled
+              title: Enable Phone Auth
+            test_phone_numbers:
+              name: test_phone_numbers
+              title: Test Phone Numbers
         auth_providers:
           name: auth_providers
           title: Auth Providers
-          level: 1
-        facebook:
-          name: facebook
-          title: Facebook Provider
-        github:
-          name: github
-          title: GitHub Provider
-        google:
-          name: google
-          title: Google Provider
-          level: 1
+          properties:
+            google:
+              name: google
+              title: Google Provider
+              properties:
+                client_id:
+                  name: client_id
+                  title: Client ID
+                client_secret:
+                  name: client_secret
+                  title: Client Secret
+            apple:
+              name: apple
+              title: Apple Provider
+              properties:
+                service_id:
+                  name: service_id
+                  title: Service ID
+                team_id:
+                  name: team_id
+                  title: Team ID
+                key_id:
+                  name: key_id
+                  title: Key ID
+                client_secret:
+                  name: client_secret
+                  title: Client Secret
+            facebook:
+              name: facebook
+              title: Facebook Provider
+              properties:
+                app_id:
+                  name: app_id
+                  title: App ID
+                app_secret:
+                  name: app_secret
+                  title: App Secret
+            github:
+              name: github
+              title: GitHub Provider
+              properties:
+                client_id:
+                  name: client_id
+                  title: Client ID
+                client_secret:
+                  name: client_secret
+                  title: Client Secret
         project_id:
           name: project_id
           title: Project Id

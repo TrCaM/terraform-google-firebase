@@ -31,7 +31,6 @@ spec:
         apps:
           name: apps
           title: Apps
-          level: 1
           properties:
             android_app:
               name: android_app
