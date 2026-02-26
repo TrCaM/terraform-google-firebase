@@ -36,8 +36,8 @@ output "android_config" {
   sensitive   = true
 }
 
-output "ios_config" {
-  description = "iOS app configuration."
-  value       = module.multi_platform_app.ios_config
+output "apple_config" {
+  description = "Apple app configuration."
+  value       = module.multi_platform_app.apple_config
   sensitive   = true
 }

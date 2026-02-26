@@ -24,7 +24,7 @@ output "app_ids" {
   value = {
     web     = try(google_firebase_web_app.default[0].app_id, null)
     android = try(google_firebase_android_app.default[0].app_id, null)
-    ios     = try(google_firebase_apple_app.default[0].app_id, null)
+    apple   = try(google_firebase_apple_app.default[0].app_id, null)
   }
 }
 
@@ -40,7 +40,7 @@ output "android_config" {
   sensitive   = true
 }
 
-output "ios_config" {
+output "apple_config" {
   description = "The GoogleService-Info.plist content for the Apple App."
   value       = try(data.google_firebase_apple_app_config.default[0].config_file_contents, null)
   sensitive   = true
@@ -49,12 +49,12 @@ output "ios_config" {
 output "app_check_bundle" {
   description = "A structured object containing verified app IDs and metadata tailored for the Firebase App Check module."
   value = {
-    android = coalesce(try(var.apps.android_app.enable_app_check, false), false) && length(google_firebase_android_app.default) > 0 ? [{
+    android = coalesce(try(var.apps.android_app.register_app_check, false), false) && length(google_firebase_android_app.default) > 0 ? [{
       app_id    = try(google_firebase_android_app.default[0].app_id, null)
       token_ttl = null
     }] : []
 
-    apple = coalesce(try(var.apps.apple_app.enable_app_check, false), false) && length(google_firebase_apple_app.default) > 0 ? [{
+    apple = coalesce(try(var.apps.apple_app.register_app_check, false), false) && length(google_firebase_apple_app.default) > 0 ? [{
       app_id     = try(google_firebase_apple_app.default[0].app_id, null)
       token_ttl  = null
       app_attest = try(var.apps.apple_app.team_id, null) != null ? true : null
@@ -64,7 +64,7 @@ output "app_check_bundle" {
       } : null
     }] : []
 
-    web = coalesce(try(var.apps.web_app.enable_app_check, false), false) && length(google_firebase_web_app.default) > 0 ? [{
+    web = coalesce(try(var.apps.web_app.register_app_check, false), false) && length(google_firebase_web_app.default) > 0 ? [{
       app_id              = try(google_firebase_web_app.default[0].app_id, null)
       site_key            = try(var.apps.web_app.recaptcha_site_key, null)
       recaptcha_v3_secret = null

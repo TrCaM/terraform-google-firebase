@@ -40,7 +40,7 @@ spec:
               title: Token TTL
         apple_apps:
           name: apple_apps
-          title: Apple App Configurations (iOS/Apple TV/macOS)
+          title: Apple App Configurations
           properties:
             app_attest:
               name: app_attest
@@ -94,7 +94,7 @@ spec:
             - label: Cloud Firestore
               value: firestore.googleapis.com
             - label: Firebase AI Logic
-              value: firebasevertexai.googleapis.com
+              value: firebaseml.googleapis.com
         web_apps:
           name: web_apps
           title: Web App Configurations
@@ -111,3 +111,9 @@ spec:
             token_ttl:
               name: token_ttl
               title: Token TTL
+    runtime:
+      outputs:
+        enabled_app_ids:
+          visibility: VISIBILITY_ROOT
+        enabled_service_ids:
+          visibility: VISIBILITY_ROOT

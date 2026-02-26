@@ -28,36 +28,93 @@ spec:
   ui:
     input:
       variables:
-        android_app:
-          name: android_app
-          title: Android App
-        apple_app:
-          name: apple_app
-          title: Apple App
+        project_id:
+          name: project_id
+          title: Project ID
         apps:
           name: apps
           title: Apps
-        device_check_id:
-          name: device_check_id
-          title: DeviceCheck Key ID (Apple)
-        device_check_key:
-          name: device_check_key
-          title: DeviceCheck Private Key (Apple)
-        enable_app_check:
-          name: enable_app_check
-          title: Enable App Check
-        project_id:
-          name: project_id
-          title: Project Id
-        recaptcha_site_key:
-          name: recaptcha_site_key
-          title: reCAPTCHA Enterprise Site Key (Web)
-        sha256_hashes:
-          name: sha256_hashes
-          title: SHA256 Certificate Hashes (Android)
-        team_id:
-          name: team_id
-          title: Developer Team ID (Apple)
-        web_app:
-          name: web_app
-          title: Web App
+          properties:
+            web_app:
+              name: web_app
+              title: Web App
+              level: 1
+              properties:
+                display_name:
+                  name: display_name
+                  title: Display Name
+                  level: 1
+                api_key_id:
+                  name: api_key_id
+                  title: API Key ID
+                  level: 1
+                recaptcha_site_key:
+                  name: recaptcha_site_key
+                  title: reCAPTCHA Enterprise Site Key
+                  level: 1
+                register_app_check:
+                  name: register_app_check
+                  title: Register App Check protection
+                  level: 1
+            android_app:
+              name: android_app
+              title: Android App
+              level: 1
+              properties:
+                package_name:
+                  name: package_name
+                  title: Package Name
+                  level: 1
+                display_name:
+                  name: display_name
+                  title: Display Name
+                  level: 1
+                sha256_hashes:
+                  name: sha256_hashes
+                  title: SHA256 Certificate Hashes
+                  level: 1
+                register_app_check:
+                  name: register_app_check
+                  title: Register App Check protection
+                  level: 1
+            apple_app:
+              name: apple_app
+              title: Apple App
+              level: 1
+              properties:
+                bundle_id:
+                  name: bundle_id
+                  title: Bundle ID
+                  level: 1
+                display_name:
+                  name: display_name
+                  title: Display Name
+                  level: 1
+                team_id:
+                  name: team_id
+                  title: Developer Team ID
+                  level: 1
+                device_check_key:
+                  name: device_check_key
+                  title: DeviceCheck Private Key
+                  level: 1
+                device_check_id:
+                  name: device_check_id
+                  title: DeviceCheck Key ID
+                  level: 1
+                register_app_check:
+                  name: register_app_check
+                  title: Register App Check protection
+                  level: 1
+    runtime:
+      outputs:
+        android_config:
+          visibility: VISIBILITY_ROOT
+        app_check_bundle:
+          visibility: VISIBILITY_ROOT
+        app_ids:
+          visibility: VISIBILITY_ROOT
+        apple_config:
+          visibility: VISIBILITY_ROOT
+        web_config:
+          visibility: VISIBILITY_ROOT

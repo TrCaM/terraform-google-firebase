@@ -1,6 +1,6 @@
 # Firebase Multi-Platform Application Example
 
-This example demonstrates how to use the `firebase_multi_platform_application` submodule to bootstrap a Firebase project with Web, Android, and iOS apps.
+This example demonstrates how to use the `firebase_multi_platform_application` submodule to bootstrap a Firebase project with Web, Android, and Apple apps.
 
 ## Usage
 
@@ -34,7 +34,7 @@ This example demonstrates how to use the `firebase_multi_platform_application` s
 |------|-------------|
 | android\_config | Android app configuration. |
 | app\_ids | The created app IDs. |
-| ios\_config | iOS app configuration. |
+| apple\_config | Apple app configuration. |
 | project\_id | The project ID. |
 | web\_config | Web app configuration. |
 
