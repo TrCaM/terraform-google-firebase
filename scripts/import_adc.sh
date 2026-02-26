@@ -29,7 +29,10 @@ function show_usage() {
     echo "  --project <project_id>   (Required) GCP Project ID for ADC"
     echo "  --revision <revision>    (Required) The revision name to create in ADC (e.g., r3)"
     echo "  --tag <tag>              (Required) The Git tag to import from (e.g., v12.15.0)"
+    echo "  --bump-version <version> (Optional) Bumps metadata.yaml versions before importing (e.g., 12.16.0)"
+    echo "  --commit                 If provided, commits the version bumps and pushes to main."
     echo "  --publish-tag            If provided, creates an annotated local tag and pushes to origin before importing."
+    echo "  --dry-run                If provided, bumps version but skips git and gcloud commands."
     echo "  --location <location>    (Optional) ADC Location (default: $LOCATION)"
     echo "  --space <space>          (Optional) ADC Space (default: $SPACE)"
     echo "  --catalog <catalog>      (Optional) ADC Catalog (default: $CATALOG)"
@@ -45,7 +48,10 @@ while [[ "$#" -gt 0 ]]; do
         --project) PROJECT="$2"; shift 2 ;;
         --revision) REVISION="$2"; shift 2 ;;
         --tag) TAG="$2"; shift 2 ;;
+        --bump-version) BUMP_VERSION="$2"; shift 2 ;;
+        --commit) COMMIT=1; shift 1 ;;
         --publish-tag) PUBLISH_TAG=1; shift 1 ;;
+        --dry-run) DRY_RUN=1; shift 1 ;;
         --location) LOCATION="$2"; shift 2 ;;
         --space) SPACE="$2"; shift 2 ;;
         --catalog) CATALOG="$2"; shift 2 ;;
@@ -72,19 +78,69 @@ echo " Space:       $SPACE"
 echo " Catalog:     $CATALOG"
 echo " Revision:    $REVISION"
 echo " Tag:         $TAG"
+echo " Bump Version:${BUMP_VERSION:-None}"
+echo " Commit:      ${COMMIT:-0}"
 echo " Publish Tag: ${PUBLISH_TAG:-0}"
+echo " Dry Run:     ${DRY_RUN:-0}"
 echo " Repository:  $REPO"
 echo " Modules:     $MODULES"
 echo "=========================================="
 echo ""
 
+# Handle version bump
+if [[ -n "$BUMP_VERSION" ]]; then
+    echo "Bumping versions to $BUMP_VERSION in metadata.yaml files..."
+    IFS=',' read -r -a MODULE_ARRAY <<< "$MODULES"
+
+    for DIR in "${MODULE_ARRAY[@]}"; do
+        METADATA_FILE="modules/$DIR/metadata.yaml"
+        if [[ -f "$METADATA_FILE" ]]; then
+            echo "  Updating $METADATA_FILE"
+            # Replace main module version
+            sed -i.bak "s/^    version: .*/    version: $BUMP_VERSION/" "$METADATA_FILE"
+            # Replace connections version (handles arbitrary spaces before the version)
+            sed -i.bak "s/^              version: \">= *.*\"/              version: \">= $BUMP_VERSION\"/" "$METADATA_FILE"
+            rm -f "${METADATA_FILE}.bak"
+        else
+            echo "  Warning: $METADATA_FILE not found."
+        fi
+    done
+    echo "Version bump complete."
+    echo ""
+
+    if [[ "$COMMIT" == "1" ]]; then
+        echo "Committing and pushing version bumps..."
+        # Add metadata files
+        for DIR in "${MODULE_ARRAY[@]}"; do
+            if [[ -f "modules/$DIR/metadata.yaml" ]]; then
+                git add "modules/$DIR/metadata.yaml"
+            fi
+        done
+        # Commit and push
+        if [[ "$DRY_RUN" == "1" ]]; then
+            echo "  [DRY RUN] Would commit and push modified files."
+            echo ""
+        else
+            git commit -m "Bump ADC metadata versions to $BUMP_VERSION" || echo "Nothing to commit."
+            git push origin main || { echo "Failed to push commit."; exit 1; }
+            echo "Successfully committed and pushed version bumps."
+            echo ""
+        fi
+    fi
+fi
+
 # Handle tag publishing
 if [[ "$PUBLISH_TAG" == "1" ]]; then
     echo "Publishing tag: $TAG..."
-    git tag "$TAG" || { echo "Failed to create local tag. Ensure it does not already exist."; exit 1; }
-    git push origin "$TAG" || { echo "Failed to push tag."; exit 1; }
-    echo "Successfully pushed tag $TAG."
-    echo ""
+    if [[ "$DRY_RUN" == "1" ]]; then
+        echo "  [DRY RUN] Would create and push tag $TAG."
+        echo ""
+    else
+        git tag "$TAG" || { echo "Failed to create local tag. Ensure it does not already exist."; exit 1; }
+        git push origin "$TAG" || { echo "Failed to push tag."; exit 1; }
+        echo "Successfully pushed tag $TAG."
+        echo ""
+    fi
 fi
 
 # Convert comma-separated modules into an array
@@ -106,25 +162,33 @@ for DIR in "${MODULE_ARRAY[@]}"; do
 
     # Delete existing revision if any
     echo "Deleting existing revision '$REVISION' (if it exists)..."
-    gcloud design-center spaces catalogs templates revisions delete "$REVISION" \
-        --project="$PROJECT" \
-        --location="$LOCATION" \
-        --space="$SPACE" \
-        --catalog="$CATALOG" \
-        --template="$TEMPLATE" \
-        --quiet || echo "Revision did not exist or could not be deleted."
+    if [[ "$DRY_RUN" == "1" ]]; then
+        echo "  [DRY RUN] Would run: gcloud design-center spaces catalogs templates revisions delete \"$REVISION\" --template=\"$TEMPLATE\" ..."
+    else
+        gcloud design-center spaces catalogs templates revisions delete "$REVISION" \
+            --project="$PROJECT" \
+            --location="$LOCATION" \
+            --space="$SPACE" \
+            --catalog="$CATALOG" \
+            --template="$TEMPLATE" \
+            --quiet || echo "Revision did not exist or could not be deleted."
+    fi
 
     # Create new revision
     echo "Creating new revision '$REVISION' from tag '$TAG'..."
-    gcloud design-center spaces catalogs templates revisions create "$REVISION" \
-        --project="$PROJECT" \
-        --location="$LOCATION" \
-        --space="$SPACE" \
-        --catalog="$CATALOG" \
-        --template="$TEMPLATE" \
-        --git-source-repo="$REPO" \
-        --git-source-ref-tag="$TAG" \
-        --git-source-dir="modules/$DIR"
+    if [[ "$DRY_RUN" == "1" ]]; then
+        echo "  [DRY RUN] Would run: gcloud design-center spaces catalogs templates revisions create \"$REVISION\" --template=\"$TEMPLATE\" ..."
+    else
+        gcloud design-center spaces catalogs templates revisions create "$REVISION" \
+            --project="$PROJECT" \
+            --location="$LOCATION" \
+            --space="$SPACE" \
+            --catalog="$CATALOG" \
+            --template="$TEMPLATE" \
+            --git-source-repo="$REPO" \
+            --git-source-ref-tag="$TAG" \
+            --git-source-dir="modules/$DIR"
+    fi
 
     echo "Completed import for '$TEMPLATE'."
     echo ""
