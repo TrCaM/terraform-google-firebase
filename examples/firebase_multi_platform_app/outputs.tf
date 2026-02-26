@@ -27,17 +27,14 @@ output "app_ids" {
 output "web_config" {
   description = "Web app configuration."
   value       = module.multi_platform_app.web_config
-  sensitive   = true
 }
 
 output "android_config" {
   description = "Android app configuration."
   value       = module.multi_platform_app.android_config
-  sensitive   = true
 }
 
 output "apple_config" {
   description = "Apple app configuration."
   value       = module.multi_platform_app.apple_config
-  sensitive   = true
 }

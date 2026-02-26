@@ -22,19 +22,23 @@ output "project_id" {
 output "google_client_id" {
   description = "Google Client ID"
   value       = var.google_client_id
+  sensitive   = true
 }
 
 output "facebook_app_id" {
   description = "Facebook App ID"
   value       = var.facebook_app_id
+  sensitive   = true
 }
 
 output "github_client_id" {
   description = "GitHub Client ID"
   value       = var.github_client_id
+  sensitive   = true
 }
 
 output "apple_service_id" {
   description = "Apple Service ID"
   value       = var.apple_service_id
+  sensitive   = true
 }

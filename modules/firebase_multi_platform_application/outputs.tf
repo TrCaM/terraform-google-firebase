@@ -31,19 +31,16 @@ output "app_ids" {
 output "web_config" {
   description = "The configuration snippet for the Firebase Web App."
   value       = try(data.google_firebase_web_app_config.default[0], null)
-  sensitive   = true
 }
 
 output "android_config" {
   description = "The google-services.json content for the Android App."
   value       = try(data.google_firebase_android_app_config.default[0].config_file_contents, null)
-  sensitive   = true
 }
 
 output "apple_config" {
   description = "The GoogleService-Info.plist content for the Apple App."
   value       = try(data.google_firebase_apple_app_config.default[0].config_file_contents, null)
-  sensitive   = true
 }
 
 output "app_check_bundle" {
@@ -71,4 +68,5 @@ output "app_check_bundle" {
       token_ttl           = null
     }] : []
   }
+  sensitive = true
 }
