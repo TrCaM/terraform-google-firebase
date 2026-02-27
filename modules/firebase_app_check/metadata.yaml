@@ -113,10 +113,16 @@ spec:
         varType: |-
           list(object({
               app_id       = string
-              display_name = string
+              display_name = optional(string)
               token        = string
             }))
         defaultValue: []
+        connections:
+          - source:
+              source: github.com/TrCaM/terraform-google-firebase//modules/firebase_multi_platform_application
+              version: ">= 12.20.0"
+            spec:
+              outputExpr: app_check_bundle.debug_tokens
     outputs:
       - name: enabled_app_ids
         description: A sorted list of all unique Firebase App IDs configured for App Check in this module.

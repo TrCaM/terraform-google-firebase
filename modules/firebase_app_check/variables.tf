@@ -69,7 +69,7 @@ variable "debug_tokens" {
   description = "List of debug tokens to create for specific apps."
   type = list(object({
     app_id       = string
-    display_name = string
+    display_name = optional(string, "Debug Token")
     token        = string
   }))
   default = []

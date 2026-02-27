@@ -42,9 +42,13 @@ spec:
                 package_name:
                   name: package_name
                   title: Package Name
-                register_app_check:
-                  name: register_app_check
-                  title: Register App Check protection
+                app_check_config:
+                  name: app_check_config
+                  title: App Check Configuration
+                  properties:
+                    enable:
+                      name: enable
+                      title: Register App Check protection
                 sha256_hashes:
                   name: sha256_hashes
                   title: SHA256 Certificate Hashes
@@ -55,23 +59,27 @@ spec:
                 bundle_id:
                   name: bundle_id
                   title: Bundle ID
-                device_check_id:
-                  name: device_check_id
-                  title: DeviceCheck Key ID
-                device_check_key:
-                  name: device_check_key
-                  title: DeviceCheck Private Key
                 display_name:
                   name: display_name
                   title: Display Name
-                register_app_check_app_attest:
-                  name: register_app_check_app_attest
-                  title: Enable App Attest
-                  tooltip: Enables Firebase App Check enforcement using App Attest for this Apple app.
-                register_app_check_device_check:
-                  name: register_app_check_device_check
-                  title: Enable DeviceCheck
-                  tooltip: Enables Firebase App Check enforcement using DeviceCheck for this Apple app.
+                app_check_config:
+                  name: app_check_config
+                  title: App Check Configuration
+                  properties:
+                    device_check_id:
+                      name: device_check_id
+                      title: DeviceCheck Key ID
+                    device_check_key:
+                      name: device_check_key
+                      title: DeviceCheck Private Key
+                    enable_app_attest:
+                      name: enable_app_attest
+                      title: Enable App Attest
+                      tooltip: Enables Firebase App Check enforcement using App Attest for this Apple app.
+                    enable_device_check:
+                      name: enable_device_check
+                      title: Enable DeviceCheck
+                      tooltip: Enables Firebase App Check enforcement using DeviceCheck for this Apple app.
                 team_id:
                   name: team_id
                   title: Developer Team ID
@@ -85,12 +93,16 @@ spec:
                 display_name:
                   name: display_name
                   title: Display Name
-                recaptcha_site_key:
-                  name: recaptcha_site_key
-                  title: reCAPTCHA Enterprise Site Key
-                register_app_check:
-                  name: register_app_check
-                  title: Register App Check protection
+                app_check_config:
+                  name: app_check_config
+                  title: App Check Configuration
+                  properties:
+                    recaptcha_site_key:
+                      name: recaptcha_site_key
+                      title: reCAPTCHA Enterprise Site Key
+                    enable:
+                      name: enable
+                      title: Register App Check protection
         project_id:
           name: project_id
           title: Project ID

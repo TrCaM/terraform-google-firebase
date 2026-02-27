@@ -46,27 +46,44 @@ output "apple_config" {
 output "app_check_bundle" {
   description = "A structured object containing verified app IDs and metadata tailored for the Firebase App Check module."
   value = {
-    android = coalesce(try(var.apps.android_app.register_app_check, false), false) && length(google_firebase_android_app.default) > 0 ? [{
+    android = coalesce(try(var.apps.android_app.app_check_config.enable, false), false) && length(google_firebase_android_app.default) > 0 ? [{
       app_id    = try(google_firebase_android_app.default[0].app_id, null)
       token_ttl = null
     }] : []
 
-    apple = (coalesce(try(var.apps.apple_app.register_app_check_app_attest, false), false) || coalesce(try(var.apps.apple_app.register_app_check_device_check, false), false)) && length(google_firebase_apple_app.default) > 0 ? [{
+    apple = (coalesce(try(var.apps.apple_app.app_check_config.enable_app_attest, false), false) || coalesce(try(var.apps.apple_app.app_check_config.enable_device_check, false), false)) && length(google_firebase_apple_app.default) > 0 ? [{
       app_id     = try(google_firebase_apple_app.default[0].app_id, null)
       token_ttl  = null
-      app_attest = coalesce(try(var.apps.apple_app.register_app_check_app_attest, false), false) ? true : null
-      device_check = coalesce(try(var.apps.apple_app.register_app_check_device_check, false), false) && try(var.apps.apple_app.device_check_key, null) != null && try(var.apps.apple_app.device_check_id, null) != null ? {
-        private_key = var.apps.apple_app.device_check_key
-        key_id      = var.apps.apple_app.device_check_id
+      app_attest = coalesce(try(var.apps.apple_app.app_check_config.enable_app_attest, false), false) ? true : null
+      device_check = coalesce(try(var.apps.apple_app.app_check_config.enable_device_check, false), false) && try(var.apps.apple_app.app_check_config.device_check_key, null) != null && try(var.apps.apple_app.app_check_config.device_check_id, null) != null ? {
+        private_key = var.apps.apple_app.app_check_config.device_check_key
+        key_id      = var.apps.apple_app.app_check_config.device_check_id
       } : null
     }] : []
 
-    web = coalesce(try(var.apps.web_app.register_app_check, false), false) && length(google_firebase_web_app.default) > 0 ? [{
+    web = coalesce(try(var.apps.web_app.app_check_config.enable, false), false) && length(google_firebase_web_app.default) > 0 ? [{
       app_id              = try(google_firebase_web_app.default[0].app_id, null)
-      site_key            = try(var.apps.web_app.recaptcha_site_key, null)
+      site_key            = try(var.apps.web_app.app_check_config.recaptcha_site_key, null)
       recaptcha_v3_secret = null
       token_ttl           = null
     }] : []
+
+    debug_tokens = concat(
+      [for token in(try(var.apps.android_app.app_check_config.debug_tokens, null) == null ? [] : var.apps.android_app.app_check_config.debug_tokens) : {
+        app_id       = try(google_firebase_android_app.default[0].app_id, null)
+        display_name = token.display_name
+        token        = token.token
+      } if length(google_firebase_android_app.default) > 0],
+      [for token in(try(var.apps.apple_app.app_check_config.debug_tokens, null) == null ? [] : var.apps.apple_app.app_check_config.debug_tokens) : {
+        app_id       = try(google_firebase_apple_app.default[0].app_id, null)
+        display_name = token.display_name
+        token        = token.token
+      } if length(google_firebase_apple_app.default) > 0],
+      [for token in(try(var.apps.web_app.app_check_config.debug_tokens, null) == null ? [] : var.apps.web_app.app_check_config.debug_tokens) : {
+        app_id       = try(google_firebase_web_app.default[0].app_id, null)
+        display_name = token.display_name
+        token        = token.token
+      } if length(google_firebase_web_app.default) > 0]
+    )
   }
-  sensitive = true
 }
