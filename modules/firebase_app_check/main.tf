@@ -73,7 +73,7 @@ resource "google_firebase_app_check_recaptcha_v3_config" "default" {
 
 # Debug Tokens
 resource "google_firebase_app_check_debug_token" "tokens" {
-  for_each     = { for token in var.debug_tokens : "${token.app_id}-${token.display_name}" => token }
+  for_each     = { for i, token in var.debug_tokens : tostring(i) => token }
   provider     = google-beta
   project      = var.project_id
   app_id       = each.value.app_id
