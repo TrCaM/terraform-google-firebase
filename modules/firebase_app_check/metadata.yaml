@@ -113,7 +113,7 @@ spec:
         varType: |-
           list(object({
               app_id       = string
-              display_name = optional(string)
+              display_name = optional(string, "Debug Token")
               token        = string
             }))
         defaultValue: []

@@ -14,7 +14,7 @@ Ensure the target GCP Project has the template containers created for the module
 
 ## Execution Steps
 
-Run the following command to perform the release. 
+Run the following command to perform the release.
 > **Note to Agent**: Before running this automatically, verify the current version in `metadata.yaml`.
 
 # IMPORTANT: ADC does not support overwriting revisions. The script automatically handles deleting the old revision first if it already exists.

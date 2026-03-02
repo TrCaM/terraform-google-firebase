@@ -37,8 +37,7 @@ module "ai_logic_core" {
   source     = "../../modules/firebase_ai_logic_core"
   project_id = var.project_id
   location   = var.location
-  create_app = false
-  app_id     = module.multi_platform_app.app_ids.web
+  app_id     = module.multi_platform_app.app_ids[0]
 
   # Recommended: Explicitly depend on the app module
   depends_on = [module.multi_platform_app]

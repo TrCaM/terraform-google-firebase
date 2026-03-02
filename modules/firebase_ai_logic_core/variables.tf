@@ -26,29 +26,19 @@ variable "location" {
 }
 
 variable "app_id" {
-  description = "The App ID for a Firebase app in the project. Required if create_app is false."
+  description = "The App ID for a Firebase app in the project. Any app is usable."
   type        = string
-  default     = null
 }
 
-variable "create_app" {
-  description = "Whether to create a default Firebase Web App if no app_id is provided."
-  type        = bool
-  default     = true
+variable "api_config" {
+  description = "Configuration for which AI APIs to enable for Firebase AI Logic."
+  type = object({
+    vertex_ai        = optional(bool, true)
+    gemini_developer = optional(bool, false)
+  })
+  default = {}
 }
 
-variable "verify_app" {
-  description = "Whether to verify the existence of the provided app_id using a data source. Opt-in recommended only for non-computed app IDs."
-  type        = bool
-  default     = false
-}
-
-variable "api_key" {
-  description = "The Gemini API key for server-side configuration."
-  type        = string
-  default     = null
-  sensitive   = true
-}
 
 variable "telemetry_mode" {
   description = "Telemetry mode for AI Logic (e.g., ALL, NONE)."

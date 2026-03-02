@@ -25,7 +25,7 @@ Ask the user to create a `terraform.tfvars` file in the module directory (and an
 - **WARNING**: Remind the user not to commit these `terraform.tfvars` files.
 
 ### Step 3: Run Metadata Generation
-Ask the user to run the doc and metadata generation using the CFT blueprints tool. 
+Ask the user to run the doc and metadata generation using the CFT blueprints tool.
 ```bash
 # Important! Enable BPMETADATA
 export ENABLE_BPMETADATA=1
@@ -57,7 +57,7 @@ make docker_test_lint
 ```
 
 > [!WARNING]
-> Running `make docker_test_lint` will destroy the local module references in `examples/` (replacing them with GitHub links). 
+> Running `make docker_test_lint` will destroy the local module references in `examples/` (replacing them with GitHub links).
 
 After linting succeeds, **you must revert** the `source` references in the `/examples` files back to the local relative paths (e.g. `source = "../../modules/firebase_auth"` instead of `source = "GoogleCloudPlatform/terraform-google-firebase..."`).
 

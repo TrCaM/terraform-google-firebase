@@ -36,12 +36,6 @@ spec:
               name: android_app
               title: Android App
               properties:
-                display_name:
-                  name: display_name
-                  title: Display Name
-                package_name:
-                  name: package_name
-                  title: Package Name
                 app_check_config:
                   name: app_check_config
                   title: App Check Configuration
@@ -49,6 +43,12 @@ spec:
                     enable:
                       name: enable
                       title: Register App Check protection
+                display_name:
+                  name: display_name
+                  title: Display Name
+                package_name:
+                  name: package_name
+                  title: Package Name
                 sha256_hashes:
                   name: sha256_hashes
                   title: SHA256 Certificate Hashes
@@ -56,12 +56,6 @@ spec:
               name: apple_app
               title: Apple App
               properties:
-                bundle_id:
-                  name: bundle_id
-                  title: Bundle ID
-                display_name:
-                  name: display_name
-                  title: Display Name
                 app_check_config:
                   name: app_check_config
                   title: App Check Configuration
@@ -80,6 +74,12 @@ spec:
                       name: enable_device_check
                       title: Enable DeviceCheck
                       tooltip: Enables Firebase App Check enforcement using DeviceCheck for this Apple app.
+                bundle_id:
+                  name: bundle_id
+                  title: Bundle ID
+                display_name:
+                  name: display_name
+                  title: Display Name
                 team_id:
                   name: team_id
                   title: Developer Team ID
@@ -90,19 +90,19 @@ spec:
                 api_key_id:
                   name: api_key_id
                   title: API Key ID
-                display_name:
-                  name: display_name
-                  title: Display Name
                 app_check_config:
                   name: app_check_config
                   title: App Check Configuration
                   properties:
-                    recaptcha_site_key:
-                      name: recaptcha_site_key
-                      title: reCAPTCHA Enterprise Site Key
                     enable:
                       name: enable
                       title: Register App Check protection
+                    recaptcha_site_key:
+                      name: recaptcha_site_key
+                      title: reCAPTCHA Enterprise Site Key
+                display_name:
+                  name: display_name
+                  title: Display Name
         project_id:
           name: project_id
           title: Project ID

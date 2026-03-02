@@ -14,7 +14,7 @@ Before generating metadata, the underlying Terraform module must follow ADC blue
 - Do not bundle Service and Workload type resources together. Horizontal services like IAM and SA can be bundled.
 
 ## 2. Generate Initial Metadata and Output Types
-Metadata generation creates the base `metadata.yaml` and `metadata.display.yaml`. ADC requires that **each output variable has its type explicitly defined** in the metadata. 
+Metadata generation creates the base `metadata.yaml` and `metadata.display.yaml`. ADC requires that **each output variable has its type explicitly defined** in the metadata.
 
 > [!IMPORTANT]
 > **AGENT INSTRUCTION**: Generating metadata requires a real Google Cloud Project ID and Docker execution, which is too dangerous to do autonomously. You **MUST pause and ask the user** to manually execute the following steps in their terminal. Provide them with instructions similar to these:
@@ -113,7 +113,7 @@ Here, the `web_apps` input is fed by the `app_check_bundle.web` field of the `ap
 ```
 
 ### Designing Modules for Easy ADC Connections
-Because ADC `outputExpr` **does not support Terraform functions** (like `merge`, `concat`, filtering, or looping), it heavily influences how you design Terraform modules. 
+Because ADC `outputExpr` **does not support Terraform functions** (like `merge`, `concat`, filtering, or looping), it heavily influences how you design Terraform modules.
 
 The composing module (upstream) must do the heavy lifting to structure its `outputs` so the downstream module can consume them with a simple variable selection.
 
@@ -189,7 +189,7 @@ This file controls how variables map to visual components in the ADC UI.
 Linting the metadata ensures schema compliance but alters `examples/` source paths.
 1. Run Linting:
    ```bash
-   export ENABLE_BPMETADATA=1 
+   export ENABLE_BPMETADATA=1
    make docker_test_lint
    ```
 2. Manually **revert** the `source` fields in your `examples/*/main.tf` files back to relative paths (e.g., `source = "../../modules/firebase_ai_logic_core"`).

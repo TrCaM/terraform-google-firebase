@@ -28,15 +28,13 @@ spec:
   ui:
     input:
       variables:
-        api_key:
-          name: api_key
-          title: Api Key
+        api_config:
+          name: api_config
+          title: Api Config
+          level: 1
         app_id:
           name: app_id
           title: App Id
-        create_app:
-          name: create_app
-          title: Create App
         location:
           name: location
           title: Location
@@ -49,6 +47,7 @@ spec:
         telemetry_sampling_rate:
           name: telemetry_sampling_rate
           title: Telemetry Sampling Rate
-        verify_app:
-          name: verify_app
-          title: Verify App
+    runtime:
+      outputs:
+        config_name:
+          visibility: VISIBILITY_ROOT

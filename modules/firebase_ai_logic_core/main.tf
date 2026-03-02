@@ -16,8 +16,7 @@
 
 locals {
   # Parse platform from app_id (format: 1:PROJECT_NUMBER:PLATFORM:APP_ID)
-  # Default to null if app_id is not provided or if verification is disabled
-  app_parts = (var.verify_app && var.app_id != null) ? split(":", var.app_id) : []
+  app_parts = split(":", var.app_id)
   platform  = length(local.app_parts) >= 3 ? local.app_parts[2] : null
 
   is_web     = local.platform == "web"
@@ -25,7 +24,7 @@ locals {
   is_apple   = local.platform == "ios"
 }
 
-# 1. Verification of existing app (Opt-in via verify_app)
+# 1. Verification of existing app
 data "google_firebase_web_app" "provided" {
   count    = local.is_web ? 1 : 0
   provider = google-beta
@@ -47,25 +46,50 @@ data "google_firebase_apple_app" "provided" {
   app_id   = var.app_id
 }
 
-# 2. Automatic creation of a default app (Opt-in via create_app)
-resource "google_firebase_web_app" "default" {
-  count           = var.create_app ? 1 : 0
-  provider        = google-beta
-  project         = var.project_id
-  display_name    = "AI Logic Default App"
-  deletion_policy = "DELETE"
+# 2. Enable Required APIs
+resource "google_project_service" "vertexai" {
+  count              = var.api_config.vertex_ai ? 1 : 0
+  provider           = google-beta
+  project            = var.project_id
+  service            = "aiplatform.googleapis.com"
+  disable_on_destroy = false
 }
 
-# 3. AI Logic Configuration (depends on app existence)
+resource "google_project_service" "gemini" {
+  count              = var.api_config.gemini_developer ? 1 : 0
+  provider           = google-beta
+  project            = var.project_id
+  service            = "generativelanguage.googleapis.com"
+  disable_on_destroy = false
+}
+
+# 3. Generate Gemini API Key (if enabled)
+resource "google_apikeys_key" "gemini" {
+  count        = var.api_config.gemini_developer ? 1 : 0
+  provider     = google-beta
+  project      = var.project_id
+  name         = "firebase-ai-logic-gemini-key"
+  display_name = "Gemini API Key for Firebase AI Logic"
+
+  restrictions {
+    api_targets {
+      service = "generativelanguage.googleapis.com"
+    }
+  }
+
+  depends_on = [google_project_service.gemini]
+}
+
+# 4. AI Logic Configuration
 resource "google_firebase_ai_logic_config" "default" {
   provider = google-beta
   project  = var.project_id
   location = var.location
 
   dynamic "generative_language_config" {
-    for_each = var.api_key != null ? [1] : []
+    for_each = var.api_config.gemini_developer ? [1] : []
     content {
-      api_key = var.api_key
+      api_key = google_apikeys_key.gemini[0].key_string
     }
   }
 
@@ -74,11 +98,9 @@ resource "google_firebase_ai_logic_config" "default" {
     sampling_rate = var.telemetry_sampling_rate
   }
 
-  # Ensure AI Logic is enabled only after an app is verified or created
   depends_on = [
     data.google_firebase_web_app.provided,
     data.google_firebase_android_app.provided,
-    data.google_firebase_apple_app.provided,
-    google_firebase_web_app.default
+    data.google_firebase_apple_app.provided
   ]
 }

@@ -50,23 +50,23 @@ spec:
         varType: |-
           object({
               web_app = optional(object({
-                display_name       = optional(string)
-                api_key_id         = optional(string)
-                app_check_config   = optional(object({
+                display_name = optional(string)
+                api_key_id   = optional(string)
+                app_check_config = optional(object({
                   enable             = optional(bool)
                   recaptcha_site_key = optional(string)
-                  debug_tokens       = optional(list(object({
+                  debug_tokens = optional(list(object({
                     display_name = optional(string)
                     token        = string
                   })))
                 }))
               }))
               android_app = optional(object({
-                package_name       = optional(string)
-                display_name       = optional(string)
-                sha256_hashes      = optional(list(string))
-                app_check_config   = optional(object({
-                  enable       = optional(bool)
+                package_name  = optional(string)
+                display_name  = optional(string)
+                sha256_hashes = optional(list(string))
+                app_check_config = optional(object({
+                  enable = optional(bool)
                   debug_tokens = optional(list(object({
                     display_name = optional(string)
                     token        = string
@@ -74,15 +74,15 @@ spec:
                 }))
               }))
               apple_app = optional(object({
-                bundle_id                       = optional(string)
-                display_name                    = optional(string)
-                team_id                         = optional(string)
-                app_check_config                = optional(object({
+                bundle_id    = optional(string)
+                display_name = optional(string)
+                team_id      = optional(string)
+                app_check_config = optional(object({
                   enable_app_attest   = optional(bool)
                   enable_device_check = optional(bool)
                   device_check_key    = optional(string)
                   device_check_id     = optional(string)
-                  debug_tokens        = optional(list(object({
+                  debug_tokens = optional(list(object({
                     display_name = optional(string)
                     token        = string
                   })))
@@ -113,6 +113,12 @@ spec:
                     - key_id: string
                       private_key: string
                   token_ttl: string
+            debug_tokens:
+              - list
+              - - object
+                - app_id: string
+                  display_name: string
+                  token: string
             web:
               - list
               - - object
@@ -120,19 +126,11 @@ spec:
                   recaptcha_v3_secret: string
                   site_key: string
                   token_ttl: string
-            debug_tokens:
-              - list
-              - - object
-                - app_id: string
-                  display_name: string
-                  token: string
       - name: app_ids
-        description: Map of platform names to their respective Firebase App IDs.
+        description: List of Firebase App IDs provisioned by this module.
         type:
-          - object
-          - android: string
-            apple: string
-            web: string
+          - list
+          - string
       - name: apple_config
         description: The GoogleService-Info.plist content for the Apple App.
         type: string

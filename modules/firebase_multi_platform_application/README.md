@@ -45,7 +45,7 @@ module "firebase_app" {
 |------|-------------|
 | android\_config | The google-services.json content for the Android App. |
 | app\_check\_bundle | A structured object containing verified app IDs and metadata tailored for the Firebase App Check module. |
-| app\_ids | Map of platform names to their respective Firebase App IDs. |
+| app\_ids | List of Firebase App IDs provisioned by this module. |
 | apple\_config | The GoogleService-Info.plist content for the Apple App. |
 | project\_id | The project ID. |
 | web\_config | The configuration snippet for the Firebase Web App. |

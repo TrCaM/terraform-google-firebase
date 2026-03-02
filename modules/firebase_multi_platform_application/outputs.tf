@@ -20,12 +20,12 @@ output "project_id" {
 }
 
 output "app_ids" {
-  description = "Map of platform names to their respective Firebase App IDs."
-  value = {
-    web     = try(google_firebase_web_app.default[0].app_id, null)
-    android = try(google_firebase_android_app.default[0].app_id, null)
-    apple   = try(google_firebase_apple_app.default[0].app_id, null)
-  }
+  description = "List of Firebase App IDs provisioned by this module."
+  value = compact([
+    try(google_firebase_web_app.default[0].app_id, ""),
+    try(google_firebase_android_app.default[0].app_id, ""),
+    try(google_firebase_apple_app.default[0].app_id, "")
+  ])
 }
 
 output "web_config" {
