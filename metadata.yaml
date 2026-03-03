@@ -40,8 +40,8 @@ spec:
         location: modules/firebase_auth
       - name: firebase_multi_platform_application
         location: modules/firebase_multi_platform_application
-      - name: firebase_rules
-        location: modules/firebase_rules
+      - name: firestore_rules
+        location: modules/firestore_rules
     examples:
       - name: firebase_ai_logic
         location: examples/firebase_ai_logic
@@ -49,6 +49,8 @@ spec:
         location: examples/firebase_auth_suite
       - name: firebase_multi_platform_app
         location: examples/firebase_multi_platform_app
+      - name: firestore_rules
+        location: examples/firestore_rules
   interfaces: {}
   requirements:
     roles:
@@ -62,3 +64,4 @@ spec:
       - identitytoolkit.googleapis.com
       - serviceusage.googleapis.com
       - firebasevertexai.googleapis.com
+      - firebaserules.googleapis.com

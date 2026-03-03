@@ -39,6 +39,8 @@ spec:
         location: examples/firebase_auth_suite
       - name: firebase_multi_platform_app
         location: examples/firebase_multi_platform_app
+      - name: firestore_rules
+        location: examples/firestore_rules
   interfaces:
     variables:
       - name: project_id

@@ -31,6 +31,7 @@ module "project" {
     "identitytoolkit.googleapis.com",
     "serviceusage.googleapis.com",
     "firebasevertexai.googleapis.com",
+    "firebaserules.googleapis.com",
   ]
 
   deletion_policy = "DELETE"

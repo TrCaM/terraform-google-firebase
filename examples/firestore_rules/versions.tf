@@ -14,6 +14,16 @@
  * limitations under the License.
  */
 
-resource "terraform_data" "placeholder" {
-  input = "firebase_rules placeholder"
+terraform {
+  required_version = ">= 0.13"
+  required_providers {
+    google = {
+      source  = "hashicorp/google"
+      version = ">= 5.38.0"
+    }
+    google-beta = {
+      source  = "hashicorp/google-beta"
+      version = ">= 5.38.0"
+    }
+  }
 }
