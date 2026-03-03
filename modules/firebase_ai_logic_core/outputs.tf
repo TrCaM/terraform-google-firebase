@@ -18,3 +18,13 @@ output "config_name" {
   description = "The name of the AI Logic configuration."
   value       = google_firebase_ai_logic_config.default.name
 }
+
+output "project_id" {
+  description = "The project ID."
+  value       = var.project_id
+}
+
+output "location" {
+  description = "The location of the AI Logic configuration."
+  value       = var.location
+}

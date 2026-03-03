@@ -30,19 +30,23 @@ spec:
       variables:
         enable_lock:
           name: enable_lock
-          title: Enable Lock
+          title: Lock Template from Editing
+          invisible: true
         gcs_source:
           name: gcs_source
-          title: Gcs Source
+          title: GCS Source Path
+          invisible: true
         location:
           name: location
           title: Location
+          invisible: true
         project_id:
           name: project_id
-          title: Project Id
+          title: Project ID
+          invisible: true
         template_id:
           name: template_id
-          title: Template Id
+          title: Template ID
         template_string:
           name: template_string
-          title: Template String
+          title: Prompt Content

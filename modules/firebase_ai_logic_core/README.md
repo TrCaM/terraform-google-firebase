@@ -18,5 +18,7 @@ This module manages the project-wide global configuration for Firebase AI Logic.
 | Name | Description |
 |------|-------------|
 | config\_name | The name of the AI Logic configuration. |
+| location | The location of the AI Logic configuration. |
+| project\_id | The project ID. |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
