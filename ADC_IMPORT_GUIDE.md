@@ -68,13 +68,22 @@ gcloud design-center spaces catalogs templates create firebase-firebase-ai-logic
   --catalog="$CATALOG" \
   --display-name="Firebase AI Logic Core" \
   --template-category="COMPONENT_TEMPLATE"
+
+# 5. Firebase AI Logic Prompt Template
+gcloud design-center spaces catalogs templates create firebase-firebase-ai-logic-prompt-template \
+  --project="$PROJECT_ID" \
+  --location="$LOCATION" \
+  --space="$SPACE" \
+  --catalog="$CATALOG" \
+  --display-name="Firebase AI Logic Prompt Template" \
+  --template-category="COMPONENT_TEMPLATE"
 ```
 
 ## Step 4: Run the Import Script
 
-Once the template containers are created, use the provided `import_adc.sh` script to import the latest version of the modules (e.g., `v12.25.0`) into your ADC templates.
+Once the template containers are created, use the provided `import_adc.sh` script to import the latest version of the modules (e.g., `v12.26.0`) into your ADC templates.
 
-Run the following command, specifying the revision name (e.g., `r8`) and the Git tag you want to import (`v12.25.0`):
+Run the following command, specifying the revision name (e.g., `r9`) and the Git tag you want to import (`v12.26.0`):
 
 ```bash
 ./scripts/import_adc.sh \
@@ -82,8 +91,8 @@ Run the following command, specifying the revision name (e.g., `r8`) and the Git
   --location "$LOCATION" \
   --space "$SPACE" \
   --catalog "$CATALOG" \
-  --revision "r8" \
-  --tag "v12.25.0"
+  --revision "r9" \
+  --tag "v12.26.0"
 ```
 
-> **Note**: The script handles all 4 core modules automatically. It will use the configuration specified in the flags to associate the code from the Git repository with the ADC templates you created in Step 3.
+> **Note**: The script handles all 5 core modules automatically. It will use the configuration specified in the flags to associate the code from the Git repository with the ADC templates you created in Step 3.
