@@ -55,16 +55,6 @@ spec:
         description: The location for the AI Logic configuration.
         varType: string
         defaultValue: global
-      - name: app_id
-        description: The App ID for a Firebase app in the project. Any app is usable.
-        varType: string
-        required: true
-        connections:
-          - source:
-              source: github.com/TrCaM/terraform-google-firebase//modules/firebase_multi_platform_application
-              version: ">= 12.24.0"
-            spec:
-              outputExpr: app_ids[0]
       - name: api_config
         description: Configuration for which AI APIs to enable for Firebase AI Logic.
         varType: |-

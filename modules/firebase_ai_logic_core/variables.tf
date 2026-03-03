@@ -25,10 +25,6 @@ variable "location" {
   default     = "global"
 }
 
-variable "app_id" {
-  description = "The App ID for a Firebase app in the project. Any app is usable."
-  type        = string
-}
 
 variable "api_config" {
   description = "Configuration for which AI APIs to enable for Firebase AI Logic."

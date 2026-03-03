@@ -19,7 +19,7 @@ set -e
 LOCATION="us-central1"
 SPACE="default-space"
 CATALOG="default-catalog"
-MODULES="firebase_multi_platform_application,firebase_app_check,firebase_auth"
+MODULES="firebase_multi_platform_application,firebase_app_check,firebase_auth,firebase_ai_logic_core"
 REPO="TrCaM/terraform-google-firebase"
 
 # Display usage
@@ -153,6 +153,7 @@ for DIR in "${MODULE_ARRAY[@]}"; do
         "firebase_multi_platform_application") TEMPLATE="firebase-multi-platform-app" ;;
         "firebase_app_check") TEMPLATE="terraform-google-firebase-app-check" ;;
         "firebase_auth") TEMPLATE="terraform-google-firebase-firebase-auth" ;;
+        "firebase_ai_logic_core") TEMPLATE="firebase-firebase-ai-logic-core" ;;
         *) echo "Skipping unknown module: $DIR"; continue ;;
     esac
 
