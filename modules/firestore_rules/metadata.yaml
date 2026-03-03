@@ -24,7 +24,7 @@ spec:
     source:
       repo: https://github.com/TrCaM/terraform-google-firebase.git
       sourceType: git
-      dir: /modules/firebase_rules
+      dir: /modules/firestore_rules
     actuationTool:
       flavor: Terraform
       version: ">= 1.3"
@@ -38,17 +38,29 @@ spec:
         location: examples/firebase_auth_suite
       - name: firebase_multi_platform_app
         location: examples/firebase_multi_platform_app
+      - name: firestore_rules
+        location: examples/firestore_rules
   interfaces:
     variables:
-      - name: project_id
-        description: The project ID to deploy to
+      - name: database_id
+        description: The Firestore database id, use `(default)` for the default database.
+        varType: string
+        required: true
+        connections:
+          - source:
+              source: github.com/GoogleCloudPlatform/terraform-google-firestore
+              version: ">= 0.1.0"
+            spec:
+              outputExpr: database_id
+      - name: rules_content
+        description: The security rules to apply.
         varType: string
         required: true
     outputs:
-      - name: placeholder
-        description: Placeholder output
-      - name: project_id
-        description: The project ID
+      - name: release_name
+        description: The name of the release.
+      - name: ruleset_name
+        description: The name of the ruleset.
   requirements:
     roles:
       - level: Project
@@ -61,6 +73,7 @@ spec:
       - identitytoolkit.googleapis.com
       - serviceusage.googleapis.com
       - firebasevertexai.googleapis.com
+      - firebaserules.googleapis.com
     providerVersions:
       - source: hashicorp/google
         version: ">= 5.0, < 8.0"

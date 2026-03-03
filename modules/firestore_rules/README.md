@@ -22,33 +22,23 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [terraform_data.placeholder](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/resources/data) | resource |
-
-## Inputs
-
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| <a name="input_project_id"></a> [project\_id](#input\_project\_id) | The project ID to deploy to | `string` | n/a | yes |
-
-## Outputs
-
-| Name | Description |
-|------|-------------|
-| <a name="output_placeholder"></a> [placeholder](#output\_placeholder) | Placeholder output |
-| <a name="output_project_id"></a> [project\_id](#output\_project\_id) | The project ID |
+| [google_firebaserules_release.release](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/firebaserules_release) | resource |
+| [google_firebaserules_ruleset.ruleset](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/firebaserules_ruleset) | resource |
+| [google_storage_bucket_object_content.rules](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/storage_bucket_object_content) | data source |
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| project\_id | The project ID to deploy to | `string` | n/a | yes |
+| database\_id | The Firestore database id, use `(default)` for the default database. | `string` | n/a | yes |
+| rules\_content | The security rules to apply. | `string` | n/a | yes |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| placeholder | Placeholder output |
-| project\_id | The project ID |
+| release\_name | The name of the release. |
+| ruleset\_name | The name of the ruleset. |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

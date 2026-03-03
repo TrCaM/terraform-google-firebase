@@ -14,7 +14,22 @@
  * limitations under the License.
  */
 
-variable "project_id" {
-  description = "The project ID to deploy to"
-  type        = string
+output "project_id" {
+  description = "The ID of the project."
+  value       = var.project_id
+}
+
+output "database_id" {
+  description = "The ID of the Firestore database."
+  value       = google_firestore_database.database.name
+}
+
+output "ruleset_name" {
+  description = "The name of the ruleset."
+  value       = module.firestore_rules.ruleset_name
+}
+
+output "release_name" {
+  description = "The name of the release."
+  value       = module.firestore_rules.release_name
 }

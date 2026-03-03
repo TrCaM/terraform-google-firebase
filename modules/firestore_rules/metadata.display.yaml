@@ -24,10 +24,13 @@ spec:
     source:
       repo: https://github.com/TrCaM/terraform-google-firebase.git
       sourceType: git
-      dir: /modules/firebase_rules
+      dir: /modules/firestore_rules
   ui:
     input:
       variables:
-        project_id:
-          name: project_id
-          title: Project Id
+        database_id:
+          name: database_id
+          title: Database Id
+        rules_content:
+          name: rules_content
+          title: Rules Content
