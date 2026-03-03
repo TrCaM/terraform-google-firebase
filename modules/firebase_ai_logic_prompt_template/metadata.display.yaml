@@ -39,11 +39,9 @@ spec:
         location:
           name: location
           title: Location
-          invisible: true
         project_id:
           name: project_id
           title: Project ID
-          invisible: true
         template_id:
           name: template_id
           title: Template ID
