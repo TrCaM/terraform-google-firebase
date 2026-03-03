@@ -87,12 +87,13 @@ spec:
         roles:
           - roles/owner
     services:
+      - apikeys.googleapis.com
       - cloudresourcemanager.googleapis.com
       - firebase.googleapis.com
       - firebaseappcheck.googleapis.com
+      - firebasevertexai.googleapis.com
       - identitytoolkit.googleapis.com
       - serviceusage.googleapis.com
-      - firebasevertexai.googleapis.com
     providerVersions:
       - source: hashicorp/google
         version: ">= 5.0, < 8.0"
