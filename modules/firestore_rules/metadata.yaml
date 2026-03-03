@@ -60,8 +60,10 @@ spec:
     outputs:
       - name: release_name
         description: The name of the release.
+        type: string
       - name: ruleset_name
         description: The name of the ruleset.
+        type: string
   requirements:
     roles:
       - level: Project

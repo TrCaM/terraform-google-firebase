@@ -19,7 +19,7 @@ set -e
 LOCATION="us-central1"
 SPACE="default-space"
 CATALOG="default-catalog"
-MODULES="firebase_multi_platform_application,firebase_app_check,firebase_auth,firebase_ai_logic_core,firebase_ai_logic_prompt_template"
+MODULES="firebase_multi_platform_application,firebase_app_check,firebase_auth,firebase_ai_logic_core,firebase_ai_logic_prompt_template,firestore_rules"
 REPO="TrCaM/terraform-google-firebase"
 
 # Display usage
@@ -98,8 +98,8 @@ if [[ -n "$BUMP_VERSION" ]]; then
             echo "  Updating $METADATA_FILE"
             # Replace main module version
             sed -i.bak "s/^    version: .*/    version: $BUMP_VERSION/" "$METADATA_FILE"
-            # Replace connections version (handles arbitrary spaces before the version)
-            sed -i.bak "s/^              version: \">= *.*\"/              version: \">= $BUMP_VERSION\"/" "$METADATA_FILE"
+            # Replace connections version to local modules (assumes they are currently 12.x.x)
+            sed -i.bak "s/^              version: \">= 12\.[0-9]*\.[0-9]*\"/              version: \">= $BUMP_VERSION\"/" "$METADATA_FILE"
             rm -f "${METADATA_FILE}.bak"
         else
             echo "  Warning: $METADATA_FILE not found."
@@ -155,6 +155,7 @@ for DIR in "${MODULE_ARRAY[@]}"; do
         "firebase_auth") TEMPLATE="terraform-google-firebase-firebase-auth" ;;
         "firebase_ai_logic_core") TEMPLATE="firebase-firebase-ai-logic-core" ;;
         "firebase_ai_logic_prompt_template") TEMPLATE="firebase-firebase-ai-logic-prompt-template" ;;
+        "firestore_rules") TEMPLATE="firebase-firestore-rules" ;;
         *) echo "Skipping unknown module: $DIR"; continue ;;
     esac
 

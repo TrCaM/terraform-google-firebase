@@ -77,13 +77,24 @@ gcloud design-center spaces catalogs templates create firebase-firebase-ai-logic
   --catalog="$CATALOG" \
   --display-name="Firebase AI Logic Prompt Template" \
   --template-category="COMPONENT_TEMPLATE"
+
+# 6. Firebase Rules
+gcloud design-center spaces catalogs templates create firebase-firestore-rules \
+  --project="$PROJECT_ID" \
+  --location="$LOCATION" \
+  --space="$SPACE" \
+  --catalog="$CATALOG" \
+  --display-name="Firebase Rules" \
+  --template-category="COMPONENT_TEMPLATE"
 ```
 
 ## Step 4: Run the Import Script
 
-Once the template containers are created, use the provided `import_adc.sh` script to import the latest version of the modules (e.g., `v12.26.0`) into your ADC templates.
+Once the template containers are created, use the provided `import_adc.sh` script to import the latest version of the modules into your ADC templates.
 
-Run the following command, specifying the revision name (e.g., `r9`) and the Git tag you want to import (`v12.26.0`):
+You can find the latest tag/version in [https://github.com/TrCaM/terraform-google-firebase/tags](https://github.com/TrCaM/terraform-google-firebase/tags).
+
+Run the following command, specifying the revision name (e.g., `r9`) and the Git tag you want to import (e.g., `v12.30.0`):
 
 ```bash
 ./scripts/import_adc.sh \
@@ -95,4 +106,4 @@ Run the following command, specifying the revision name (e.g., `r9`) and the Git
   --tag "v12.26.0"
 ```
 
-> **Note**: The script handles all 5 core modules automatically. It will use the configuration specified in the flags to associate the code from the Git repository with the ADC templates you created in Step 3.
+> **Note**: The script handles all 6 core modules automatically. It will use the configuration specified in the flags to associate the code from the Git repository with the ADC templates you created in Step 3.
