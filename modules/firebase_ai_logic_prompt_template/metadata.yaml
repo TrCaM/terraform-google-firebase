@@ -65,9 +65,9 @@ spec:
         varType: string
         required: true
       - name: template_string
-        description: Direct text input for the prompt template content. Overrides gcs_source if provided.
+        description: Direct text input for the prompt template content. Overrides gcs_object_source if provided.
         varType: string
-      - name: gcs_source
+      - name: gcs_object_source
         description: Object containing bucket and name to fetch prompt content from GCS.
         varType: |-
           object({

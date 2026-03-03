@@ -80,7 +80,7 @@ module "ai_logic_template_gcs" {
   project_id  = var.project_id
   template_id = "hello-world-gcs"
 
-  gcs_source = {
+  gcs_object_source = {
     bucket = google_storage_bucket.prompts.name
     name   = google_storage_bucket_object.prompt_file.name
   }

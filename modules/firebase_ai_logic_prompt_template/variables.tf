@@ -31,12 +31,12 @@ variable "template_id" {
 }
 
 variable "template_string" {
-  description = "Direct text input for the prompt template content. Overrides gcs_source if provided."
+  description = "Direct text input for the prompt template content. Overrides gcs_object_source if provided."
   type        = string
   default     = null
 }
 
-variable "gcs_source" {
+variable "gcs_object_source" {
   description = "Object containing bucket and name to fetch prompt content from GCS."
   type = object({
     bucket = string

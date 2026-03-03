@@ -32,9 +32,9 @@ spec:
           name: enable_lock
           title: Lock Template from Editing
           invisible: true
-        gcs_source:
-          name: gcs_source
-          title: GCS Source Path
+        gcs_object_source:
+          name: gcs_object_source
+          title: GCS Object Source
           invisible: true
         location:
           name: location
