@@ -78,13 +78,13 @@ gcloud design-center spaces catalogs templates create firebase-firebase-ai-logic
   --display-name="Firebase AI Logic Prompt Template" \
   --template-category="COMPONENT_TEMPLATE"
 
-# 6. Firebase Rules
+# 6. Firestore Rules
 gcloud design-center spaces catalogs templates create firebase-firestore-rules \
   --project="$PROJECT_ID" \
   --location="$LOCATION" \
   --space="$SPACE" \
   --catalog="$CATALOG" \
-  --display-name="Firebase Rules" \
+  --display-name="Firestore Rules" \
   --template-category="COMPONENT_TEMPLATE"
 ```
 
