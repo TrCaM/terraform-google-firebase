@@ -14,6 +14,11 @@
  * limitations under the License.
  */
 
+variable "project_id" {
+  description = "The ID of the project in which the resource belongs."
+  type        = string
+}
+
 variable "database_id" {
   description = "The Firestore database id, use `(default)` for the default database."
   type        = string

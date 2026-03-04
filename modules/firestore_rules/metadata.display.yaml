@@ -28,6 +28,9 @@ spec:
   ui:
     input:
       variables:
+        project_id:
+          name: project_id
+          title: Project Id
         database_id:
           name: database_id
           title: Database Id

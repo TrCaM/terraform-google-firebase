@@ -43,6 +43,10 @@ spec:
         location: examples/firestore_rules
   interfaces:
     variables:
+      - name: project_id
+        description: The ID of the project in which the resource belongs.
+        varType: string
+        required: true
       - name: database_id
         description: The Firestore database id, use `(default)` for the default database.
         varType: string

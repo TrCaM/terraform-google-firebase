@@ -15,11 +15,13 @@
  */
 
 resource "google_firebaserules_release" "release" {
+  project      = var.project_id
   name         = var.database_id == "(default)" ? "cloud.firestore" : "cloud.firestore/${var.database_id}"
   ruleset_name = google_firebaserules_ruleset.ruleset.name
 }
 
 resource "google_firebaserules_ruleset" "ruleset" {
+  project = var.project_id
   source {
     files {
       name    = "firestore.rules"
