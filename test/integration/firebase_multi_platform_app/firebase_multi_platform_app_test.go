@@ -57,7 +57,7 @@ func TestFirebaseMultiPlatformApp(t *testing.T) {
 
 		verifyApp := func(appType firebase_util.AppType) {
 			results := firebase_util.GetAppList(t, projectID, appType, token)
-			assert.NotEmpty(results, fmt.Sprintf("Should have at least one %s registered", appType.Label()))
+			assert.Len(results, 1, fmt.Sprintf("Should have exactly one %s registered", appType.Label()))
 		}
 
 		verifyApp(firebase_util.Web)

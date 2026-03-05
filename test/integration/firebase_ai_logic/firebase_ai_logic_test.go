@@ -76,9 +76,6 @@ func TestFirebaseAiLogic(t *testing.T) {
 			assert.True(match.Exists(), fmt.Sprintf("Template %s should exist", templateId))
 		}
 
-		// 5. Verify the associated Web App exists
-		webApps := firebase_util.GetAppList(t, projectID, firebase_util.Web, token)
-		assert.NotEmpty(webApps, "Should have at least one web app registered")
 	})
 
 	firebaseTest.Test()

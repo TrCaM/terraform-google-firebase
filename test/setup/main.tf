@@ -32,6 +32,8 @@ module "project" {
     "serviceusage.googleapis.com",
     "firebasevertexai.googleapis.com",
     "firebaserules.googleapis.com",
+    "firestore.googleapis.com",
+    "storage.googleapis.com",
   ]
 
   deletion_policy = "DELETE"

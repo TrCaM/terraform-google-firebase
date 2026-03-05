@@ -22,24 +22,18 @@ provider "google-beta" {
   project = var.project_id
 }
 
-module "multi_platform_app" {
-  source     = "../../modules/firebase_multi_platform_application"
-  project_id = var.project_id
 
-  apps = {
-    web_app = {
-      display_name = "AI Logic Integration Web App"
-    }
-  }
-}
 
 module "ai_logic_core" {
   source     = "../../modules/firebase_ai_logic_core"
   project_id = var.project_id
   location   = var.location
 
-  # Recommended: Explicitly depend on the app module
-  depends_on = [module.multi_platform_app]
+  api_config = {
+    vertex_ai        = true
+    gemini_developer = true
+  }
+
 }
 
 module "ai_logic_template_direct" {
