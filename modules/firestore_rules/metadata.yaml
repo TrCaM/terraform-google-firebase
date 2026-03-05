@@ -87,6 +87,8 @@ spec:
       - serviceusage.googleapis.com
       - firebasevertexai.googleapis.com
       - firebaserules.googleapis.com
+      - firestore.googleapis.com
+      - storage.googleapis.com
     providerVersions:
       - source: hashicorp/google
         version: ">= 5.0, < 8.0"

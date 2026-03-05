@@ -19,11 +19,6 @@ output "project_id" {
   value       = var.project_id
 }
 
-output "web_app_id" {
-  description = "The ID of the created web app."
-  value       = module.multi_platform_app.app_ids.web
-}
-
 output "ai_logic_config_name" {
   description = "The name of the AI Logic configuration."
   value       = module.ai_logic_core.config_name

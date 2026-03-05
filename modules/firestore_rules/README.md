@@ -32,6 +32,7 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | database\_id | The Firestore database id, use `(default)` for the default database. | `string` | n/a | yes |
+| project\_id | The ID of the project in which the resource belongs. | `string` | n/a | yes |
 | rules\_content | The security rules to apply. | `string` | n/a | yes |
 
 ## Outputs

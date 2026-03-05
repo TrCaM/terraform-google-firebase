@@ -35,6 +35,5 @@ module "ai_logic_example" {
 | ai\_logic\_config\_name | The name of the AI Logic configuration. |
 | ai\_logic\_template\_names | The full resource names of the created prompt templates. |
 | project\_id | The project ID. |
-| web\_app\_id | The ID of the created web app. |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

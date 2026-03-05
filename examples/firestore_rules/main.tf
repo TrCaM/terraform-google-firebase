@@ -30,9 +30,9 @@ resource "google_firestore_database" "database" {
 }
 
 module "firestore_rules" {
-  source      = "../../modules/firestore_rules"
-  project_id  = var.project_id
-  database_id = google_firestore_database.database.name
+  source        = "../../modules/firestore_rules"
+  project_id    = var.project_id
+  database_id   = google_firestore_database.database.name
   rules_content = <<EOT
 rules_version = '2';
 service cloud.firestore {
