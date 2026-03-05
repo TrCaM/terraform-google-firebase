@@ -25,7 +25,6 @@ spec:
       repo: https://github.com/TrCaM/terraform-google-firebase.git
       sourceType: git
       dir: /modules/firebase_auth
-    version: 12.34.0
     actuationTool:
       flavor: Terraform
       version: ">= 1.3"
@@ -111,6 +110,7 @@ spec:
       - firebaserules.googleapis.com
       - firestore.googleapis.com
       - storage.googleapis.com
+      - firebaseapphosting.googleapis.com
     providerVersions:
       - source: hashicorp/google-beta
         version: ">= 6.13.0"

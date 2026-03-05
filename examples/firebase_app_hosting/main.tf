@@ -14,29 +14,15 @@
  * limitations under the License.
  */
 
-variable "project_id" {
-  description = "The project ID to deploy to"
-  type        = string
-}
+module "app_hosting" {
+  source     = "../../modules/firebase_app_hosting"
+  project_id = var.project_id
 
-variable "location" {
-  description = "The location of the App Hosting backend"
-  type        = string
-}
+  location   = "us-central1"
+  backend_id = "example-backend"
+  web_app_id = "1:1234567890:web:abcdef1234567890" # Dummy Web App ID
 
-variable "backend_id" {
-  description = "The ID of the App Hosting backend"
-  type        = string
-}
-
-variable "web_app_id" {
-  description = "The ID of the Firebase Web App to associate with the backend"
-  type        = string
-}
-
-variable "build" {
-  description = "The build configuration for the App Hosting backend"
-  type = object({
-    container_image = string
-  })
+  build = {
+    container_image = "us-docker.pkg.dev/cloudrun/container/hello"
+  }
 }

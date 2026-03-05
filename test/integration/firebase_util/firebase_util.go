@@ -229,3 +229,55 @@ func GetFirestoreRulesRuleset(t *testing.T, rulesetName string, token string) gj
 
 	return gjson.ParseBytes(body)
 }
+
+// GetAppHostingBackend retrieves an App Hosting backend.
+func GetAppHostingBackend(t *testing.T, projectId string, location string, backendId string, token string) gjson.Result {
+	url := fmt.Sprintf("https://firebaseapphosting.googleapis.com/v1beta/projects/%s/locations/%s/backends/%s", projectId, location, backendId)
+	t.Logf("Fetching App Hosting backend from: %s", url)
+
+	client := &http.Client{}
+	req, err := http.NewRequest("GET", url, nil)
+	assert.NoError(t, err, "Failed to create HTTP request")
+
+	req.Header.Add("Authorization", "Bearer "+token)
+	req.Header.Add("X-Goog-User-Project", projectId)
+
+	resp, err := client.Do(req)
+	assert.NoError(t, err, "HTTP request failed")
+	defer resp.Body.Close()
+
+	body, err := io.ReadAll(resp.Body)
+	assert.NoError(t, err, "Failed to read response body")
+
+	if resp.StatusCode != http.StatusOK {
+		t.Fatalf("API request failed with status %d: %s", resp.StatusCode, string(body))
+	}
+
+	return gjson.ParseBytes(body)
+}
+
+// GetAppHostingBuilds retrieves the list of builds for an App Hosting backend.
+func GetAppHostingBuilds(t *testing.T, projectId string, location string, backendId string, token string) []gjson.Result {
+	url := fmt.Sprintf("https://firebaseapphosting.googleapis.com/v1beta/projects/%s/locations/%s/backends/%s/builds", projectId, location, backendId)
+	t.Logf("Fetching App Hosting builds from: %s", url)
+
+	client := &http.Client{}
+	req, err := http.NewRequest("GET", url, nil)
+	assert.NoError(t, err, "Failed to create HTTP request")
+
+	req.Header.Add("Authorization", "Bearer "+token)
+	req.Header.Add("X-Goog-User-Project", projectId)
+
+	resp, err := client.Do(req)
+	assert.NoError(t, err, "HTTP request failed")
+	defer resp.Body.Close()
+
+	body, err := io.ReadAll(resp.Body)
+	assert.NoError(t, err, "Failed to read response body")
+
+	if resp.StatusCode != http.StatusOK {
+		t.Fatalf("API request failed with status %d: %s", resp.StatusCode, string(body))
+	}
+
+	return gjson.ParseBytes(body).Get("builds").Array()
+}

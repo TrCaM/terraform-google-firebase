@@ -67,3 +67,4 @@ spec:
       - firebaserules.googleapis.com
       - firestore.googleapis.com
       - storage.googleapis.com
+      - firebaseapphosting.googleapis.com

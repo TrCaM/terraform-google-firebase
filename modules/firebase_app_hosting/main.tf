@@ -14,6 +14,69 @@
  * limitations under the License.
  */
 
-resource "terraform_data" "placeholder" {
-  input = "firebase_app_hosting placeholder"
+resource "google_firebase_app_hosting_backend" "backend" {
+  project          = var.project_id
+
+  location         = var.location
+  backend_id       = var.backend_id
+  app_id           = var.web_app_id
+  serving_locality = "GLOBAL_ACCESS"
+  service_account  = google_service_account.service_account.email
+}
+
+resource "google_service_account" "service_account" {
+  project = var.project_id
+
+  # Must be firebase-app-hosting-compute
+  account_id                   = "firebase-app-hosting-compute"
+  display_name                 = "Firebase App Hosting compute service account"
+
+  # Do not throw if already exists
+  create_ignore_already_exists = true
+}
+
+resource "google_project_iam_member" "app_hosting_sa_runner" {
+  project = var.project_id
+
+  # For App Hosting
+  role   = "roles/firebaseapphosting.computeRunner"
+  member = google_service_account.service_account.member
+}
+
+resource "random_string" "build_id" {
+  length  = 16
+  special = false
+
+  # Upper case letters not allowed
+  upper   = false
+
+  keepers = {
+    "image" = var.build.container_image
+  }
+}
+
+resource "google_firebase_app_hosting_build" "build" {
+  project  = google_firebase_app_hosting_backend.backend.project
+  location = google_firebase_app_hosting_backend.backend.location
+  backend  = google_firebase_app_hosting_backend.backend.backend_id
+  build_id = random_string.build_id.result
+
+  source {
+    container {
+      image = var.build.container_image
+    }
+  }
+}
+
+resource "google_firebase_app_hosting_traffic" "traffic" {
+  project  = google_firebase_app_hosting_backend.backend.project
+  location = google_firebase_app_hosting_backend.backend.location
+  backend  = google_firebase_app_hosting_backend.backend.backend_id
+
+  target {
+    splits {
+      build   = google_firebase_app_hosting_build.build.name
+      percent = 100
+    }
+  }
 }

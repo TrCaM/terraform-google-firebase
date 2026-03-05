@@ -46,11 +46,42 @@ spec:
         description: The project ID to deploy to
         varType: string
         required: true
+      - name: location
+        description: The location of the App Hosting backend
+        varType: string
+        required: true
+      - name: backend_id
+        description: The ID of the App Hosting backend
+        varType: string
+        required: true
+      - name: web_app_id
+        description: The ID of the Firebase Web App to associate with the backend
+        varType: string
+        required: true
+        connections:
+          - source:
+              source: github.com/TrCaM/terraform-google-firebase//modules/firebase_multi_platform_application
+              version: ">= 12.34.0"
+            spec:
+              outputExpr: web_config.web_app_id
+      - name: build
+        description: The build configuration for the App Hosting backend
+        varType: |-
+          object({
+              container_image = string
+            })
+        required: true
     outputs:
-      - name: placeholder
-        description: Placeholder output
+      - name: backend_id
+        description: The ID of the App Hosting backend
+      - name: backend_name
+        description: The name of the App Hosting backend
+      - name: build_name
+        description: The name of the App Hosting build
       - name: project_id
         description: The project ID
+      - name: service_account_email
+        description: The email of the service account used by the App Hosting backend
   requirements:
     roles:
       - level: Project
@@ -66,6 +97,7 @@ spec:
       - firebaserules.googleapis.com
       - firestore.googleapis.com
       - storage.googleapis.com
+      - firebaseapphosting.googleapis.com
     providerVersions:
       - source: hashicorp/google
         version: ">= 5.0, < 8.0"

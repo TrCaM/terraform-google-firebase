@@ -28,6 +28,18 @@ spec:
   ui:
     input:
       variables:
+        backend_id:
+          name: backend_id
+          title: Backend Id
+        build:
+          name: build
+          title: Build
+        location:
+          name: location
+          title: Location
         project_id:
           name: project_id
           title: Project Id
+        web_app_id:
+          name: web_app_id
+          title: Web App Id

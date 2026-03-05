@@ -42,13 +42,20 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| backend\_id | The ID of the App Hosting backend | `string` | n/a | yes |
+| build | The build configuration for the App Hosting backend | <pre>object({<br>    container_image = string<br>  })</pre> | n/a | yes |
+| location | The location of the App Hosting backend | `string` | n/a | yes |
 | project\_id | The project ID to deploy to | `string` | n/a | yes |
+| web\_app\_id | The ID of the Firebase Web App to associate with the backend | `string` | n/a | yes |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| placeholder | Placeholder output |
+| backend\_id | The ID of the App Hosting backend |
+| backend\_name | The name of the App Hosting backend |
+| build\_name | The name of the App Hosting build |
 | project\_id | The project ID |
+| service\_account\_email | The email of the service account used by the App Hosting backend |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

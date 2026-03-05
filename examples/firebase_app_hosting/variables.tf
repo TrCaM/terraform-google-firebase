@@ -15,28 +15,6 @@
  */
 
 variable "project_id" {
-  description = "The project ID to deploy to"
+  description = "The GCP project ID to use for the example."
   type        = string
-}
-
-variable "location" {
-  description = "The location of the App Hosting backend"
-  type        = string
-}
-
-variable "backend_id" {
-  description = "The ID of the App Hosting backend"
-  type        = string
-}
-
-variable "web_app_id" {
-  description = "The ID of the Firebase Web App to associate with the backend"
-  type        = string
-}
-
-variable "build" {
-  description = "The build configuration for the App Hosting backend"
-  type = object({
-    container_image = string
-  })
 }

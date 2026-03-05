@@ -15,26 +15,26 @@
  */
 
 output "project_id" {
-  description = "The project ID"
-  value       = var.project_id
+  description = "The project ID."
+  value       = module.app_hosting.project_id
 }
 
 output "backend_id" {
   description = "The ID of the App Hosting backend"
-  value       = google_firebase_app_hosting_backend.backend.backend_id
+  value       = module.app_hosting.backend_id
 }
 
 output "backend_name" {
   description = "The name of the App Hosting backend"
-  value       = google_firebase_app_hosting_backend.backend.name
+  value       = module.app_hosting.backend_name
 }
 
 output "service_account_email" {
   description = "The email of the service account used by the App Hosting backend"
-  value       = google_service_account.service_account.email
+  value       = module.app_hosting.service_account_email
 }
 
 output "build_name" {
   description = "The name of the App Hosting build"
-  value       = google_firebase_app_hosting_build.build.name
+  value       = module.app_hosting.build_name
 }

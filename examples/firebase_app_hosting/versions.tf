@@ -14,29 +14,20 @@
  * limitations under the License.
  */
 
-variable "project_id" {
-  description = "The project ID to deploy to"
-  type        = string
-}
-
-variable "location" {
-  description = "The location of the App Hosting backend"
-  type        = string
-}
-
-variable "backend_id" {
-  description = "The ID of the App Hosting backend"
-  type        = string
-}
-
-variable "web_app_id" {
-  description = "The ID of the Firebase Web App to associate with the backend"
-  type        = string
-}
-
-variable "build" {
-  description = "The build configuration for the App Hosting backend"
-  type = object({
-    container_image = string
-  })
+terraform {
+  required_version = ">= 1.3"
+  required_providers {
+    google = {
+      source  = "hashicorp/google"
+      version = ">= 5.0, < 8.0"
+    }
+    google-beta = {
+      source  = "hashicorp/google-beta"
+      version = ">= 5.0, < 8.0"
+    }
+    random = {
+      source  = "hashicorp/random"
+      version = ">= 3.0"
+    }
+  }
 }
