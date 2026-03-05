@@ -16,10 +16,10 @@
 
 # Fetch content from GCS if gcs_source is provided
 data "google_storage_bucket_object_content" "sourced" {
-  count    = var.gcs_object_source != null ? 1 : 0
+  count    = var.template_content.gcs_object_source != null ? 1 : 0
   provider = google-beta
-  bucket   = var.gcs_object_source.bucket
-  name     = var.gcs_object_source.name
+  bucket   = var.template_content.gcs_object_source.bucket
+  name     = var.template_content.gcs_object_source.name
 }
 
 resource "google_firebase_ai_logic_prompt_template" "default" {
@@ -27,7 +27,7 @@ resource "google_firebase_ai_logic_prompt_template" "default" {
   project         = var.project_id
   location        = var.location
   template_id     = var.template_id
-  template_string = var.template_string != null ? var.template_string : (var.gcs_object_source != null ? data.google_storage_bucket_object_content.sourced[0].content : null)
+  template_string = var.template_content.raw != null ? var.template_content.raw : (var.template_content.gcs_object_source != null ? data.google_storage_bucket_object_content.sourced[0].content : null)
 }
 
 resource "google_firebase_ai_logic_prompt_template_lock" "default" {

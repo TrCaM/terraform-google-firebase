@@ -30,19 +30,15 @@ variable "template_id" {
   type        = string
 }
 
-variable "template_string" {
-  description = "Direct text input for the prompt template content. Overrides gcs_object_source if provided."
-  type        = string
-  default     = null
-}
-
-variable "gcs_object_source" {
-  description = "Object containing bucket and name to fetch prompt content from GCS."
-  type = object({
-    bucket = string
-    name   = string
+variable "template_content" {
+  description = "Prompt template content. Can either be specified as a raw string or a Google Cloud Storage object"
+  type        = object({
+    raw = optional(string)
+    gcs_object_source = optional(object({
+      bucket = string
+      name   = string
+    }))
   })
-  default = null
 }
 
 variable "enable_lock" {
