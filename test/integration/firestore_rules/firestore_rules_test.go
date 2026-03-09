@@ -58,14 +58,14 @@ func TestFirestoreRules(t *testing.T) {
 		token := strings.TrimSpace(string(out))
 
 		// 3. Verify Firestore Rules Release
-		releaseName := "cloud.firestore"
+		releaseName := firebaseTest.GetStringOutput("release_name")
 		release := firebase_util.GetFirestoreRulesRelease(t, projectID, releaseName, token)
 		assert.True(release.Exists(), "Firestore rules release should exist")
-		assert.Contains(release.Get("name").String(), releaseName, "Release name should match")
+		assert.True(strings.Contains(release.Get("name").String(), releaseName), "Release name %s should contain %s", release.Get("name").String(), releaseName)
 
 		// 4. Verify Ruleset
 		rulesetName := firebaseTest.GetStringOutput("ruleset_name")
-		ruleset := firebase_util.GetFirestoreRulesRuleset(t, rulesetName, token)
+		ruleset := firebase_util.GetFirestoreRulesRuleset(t, projectID, rulesetName, token)
 		assert.True(ruleset.Exists(), "Ruleset should exist")
 
 		// 5. Verify Rules content

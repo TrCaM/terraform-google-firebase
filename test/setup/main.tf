@@ -36,6 +36,7 @@ module "project" {
     "storage.googleapis.com",
     "firebaseapphosting.googleapis.com",
     "iam.googleapis.com",
+    "apikeys.googleapis.com"
   ]
 
   deletion_policy = "DELETE"

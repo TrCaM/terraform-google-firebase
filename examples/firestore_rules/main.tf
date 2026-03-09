@@ -22,9 +22,13 @@ provider "google-beta" {
   project = var.project_id
 }
 
+resource "random_id" "database_suffix" {
+  byte_length = 4
+}
+
 resource "google_firestore_database" "database" {
   project     = var.project_id
-  name        = "(default)"
+  name        = "test-database-${random_id.database_suffix.hex}"
   location_id = var.location
   type        = "FIRESTORE_NATIVE"
 }

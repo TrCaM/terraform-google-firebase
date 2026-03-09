@@ -206,8 +206,8 @@ func GetFirestoreRulesRelease(t *testing.T, projectId string, releaseName string
 }
 
 // GetFirestoreRulesRuleset retrieves a specific Firebase Rules ruleset.
-func GetFirestoreRulesRuleset(t *testing.T, rulesetName string, token string) gjson.Result {
-	url := fmt.Sprintf("https://firebaserules.googleapis.com/v1/%s", rulesetName)
+func GetFirestoreRulesRuleset(t *testing.T, projectId string, rulesetName string, token string) gjson.Result {
+	url := fmt.Sprintf("https://firebaserules.googleapis.com/v1/projects/%s/rulesets/%s", projectId, rulesetName)
 	t.Logf("Fetching Firestore Rules ruleset from: %s", url)
 
 	client := &http.Client{}
@@ -215,6 +215,7 @@ func GetFirestoreRulesRuleset(t *testing.T, rulesetName string, token string) gj
 	assert.NoError(t, err, "Failed to create HTTP request")
 
 	req.Header.Add("Authorization", "Bearer "+token)
+	req.Header.Add("X-Goog-User-Project", projectId)
 
 	resp, err := client.Do(req)
 	assert.NoError(t, err, "HTTP request failed")
