@@ -23,8 +23,3 @@ output "project_id" {
   description = "The project ID."
   value       = var.project_id
 }
-
-output "location" {
-  description = "The location of the AI Logic configuration."
-  value       = var.location
-}

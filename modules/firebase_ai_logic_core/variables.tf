@@ -19,13 +19,6 @@ variable "project_id" {
   type        = string
 }
 
-variable "location" {
-  description = "The location for the AI Logic configuration."
-  type        = string
-  default     = "global"
-}
-
-
 variable "api_config" {
   description = "Configuration for which AI APIs to enable for Firebase AI Logic."
   type = object({
@@ -34,7 +27,6 @@ variable "api_config" {
   })
   default = {}
 }
-
 
 variable "telemetry_mode" {
   description = "Telemetry mode for AI Logic (e.g., ALL, NONE)."

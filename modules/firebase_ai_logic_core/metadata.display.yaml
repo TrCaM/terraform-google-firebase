@@ -35,9 +35,6 @@ spec:
         app_id:
           name: app_id
           title: App Id
-        location:
-          name: location
-          title: Location
         project_id:
           name: project_id
           title: Project Id

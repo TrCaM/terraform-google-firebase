@@ -27,7 +27,6 @@ provider "google-beta" {
 module "ai_logic_core" {
   source     = "../../modules/firebase_ai_logic_core"
   project_id = var.project_id
-  location   = var.location
 
   api_config = {
     vertex_ai        = true

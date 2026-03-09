@@ -18,9 +18,3 @@ variable "project_id" {
   description = "The ID of the project to deploy to."
   type        = string
 }
-
-variable "location" {
-  description = "The location for the AI Logic configuration."
-  type        = string
-  default     = "global"
-}

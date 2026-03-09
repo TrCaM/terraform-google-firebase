@@ -18,9 +18,3 @@ variable "project_id" {
   description = "The GCP project ID"
   type        = string
 }
-
-variable "location" {
-  description = "The location for the resources"
-  type        = string
-  default     = "global"
-}
