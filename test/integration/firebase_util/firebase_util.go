@@ -282,3 +282,29 @@ func GetAppHostingBuilds(t *testing.T, projectId string, location string, backen
 
 	return gjson.ParseBytes(body).Get("builds").Array()
 }
+
+// GetAppCheckConfig fetches App Check config to verify attestation has been attached.
+func GetAppCheckConfig(t *testing.T, projectID string, appID string, configType string, token string) gjson.Result {
+	url := fmt.Sprintf("https://firebaseappcheck.googleapis.com/v1/projects/%s/apps/%s/%s", projectID, appID, configType)
+	t.Logf("Fetching App Check %s from: %s", configType, url)
+
+	client := &http.Client{}
+	req, err := http.NewRequest("GET", url, nil)
+	assert.NoError(t, err, "Failed to create HTTP request")
+
+	req.Header.Add("Authorization", "Bearer "+token)
+	req.Header.Add("X-Goog-User-Project", projectID)
+
+	resp, err := client.Do(req)
+	assert.NoError(t, err, "HTTP request failed")
+	defer resp.Body.Close()
+
+	body, err := io.ReadAll(resp.Body)
+	assert.NoError(t, err, "Failed to read response body")
+
+	if resp.StatusCode != http.StatusOK {
+		t.Fatalf("API request failed with status %d: %s", resp.StatusCode, string(body))
+	}
+
+	return gjson.ParseBytes(body)
+}

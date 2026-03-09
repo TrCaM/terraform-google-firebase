@@ -32,12 +32,18 @@ resource "google_project_service" "gemini" {
   disable_on_destroy = false
 }
 
+resource "random_id" "gemini_key_suffix" {
+  count       = var.api_config.gemini_developer ? 1 : 0
+  byte_length = 4
+  prefix      = "ailogic-gemini-"
+}
+
 # 3. Generate Gemini API Key (if enabled)
 resource "google_apikeys_key" "gemini" {
   count        = var.api_config.gemini_developer ? 1 : 0
   provider     = google-beta
   project      = var.project_id
-  name         = "firebase-ai-logic-gemini-key"
+  name         = random_id.gemini_key_suffix[0].hex
   display_name = "Gemini API Key for Firebase AI Logic"
 
   restrictions {
