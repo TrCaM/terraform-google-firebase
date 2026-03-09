@@ -27,4 +27,14 @@ variable "database_id" {
 variable "rules_content" {
   description = "The security rules to apply."
   type        = string
+  default = <<EOT
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
+EOT
 }

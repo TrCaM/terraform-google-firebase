@@ -33,7 +33,7 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | database\_id | The Firestore database id, use `(default)` for the default database. | `string` | n/a | yes |
 | project\_id | The ID of the project in which the resource belongs. | `string` | n/a | yes |
-| rules\_content | The security rules to apply. | `string` | n/a | yes |
+| rules\_content | The security rules to apply. | `string` | `"rules_version = '2';\nservice cloud.firestore {\n  match /databases/{database}/documents {\n    match /{document=**} {\n      allow read, write: if false;\n    }\n  }\n}\n"` | no |
 
 ## Outputs
 
