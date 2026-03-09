@@ -72,7 +72,7 @@ resource "time_sleep" "wait_for_build" {
   depends_on = [google_firebase_app_hosting_build.build]
 
   # Give the asynchronous build time to finish before rolling out traffic
-  create_duration = "30s"
+  create_duration = "60s"
 }
 
 resource "google_firebase_app_hosting_traffic" "traffic" {
