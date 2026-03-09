@@ -43,8 +43,14 @@ spec:
       - name: firestore_rules
         location: modules/firestore_rules
     examples:
+      - name: app_ai_storage
+        location: examples/complex_cujs/app_ai_storage
+      - name: app_and_appcheck
+        location: examples/complex_cujs/app_and_appcheck
       - name: firebase_ai_logic
         location: examples/firebase_ai_logic
+      - name: firebase_app_hosting
+        location: examples/firebase_app_hosting
       - name: firebase_auth_suite
         location: examples/firebase_auth_suite
       - name: firebase_multi_platform_app
@@ -68,3 +74,5 @@ spec:
       - firestore.googleapis.com
       - storage.googleapis.com
       - firebaseapphosting.googleapis.com
+      - iam.googleapis.com
+      - apikeys.googleapis.com

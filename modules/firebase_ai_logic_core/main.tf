@@ -60,7 +60,7 @@ resource "google_firebase_ai_logic_config" "default" {
   provider = google-beta
   project  = var.project_id
   # Only global location is supported at the moment
-  location = "global" 
+  location = "global"
 
   dynamic "generative_language_config" {
     for_each = var.api_config.gemini_developer ? [1] : []

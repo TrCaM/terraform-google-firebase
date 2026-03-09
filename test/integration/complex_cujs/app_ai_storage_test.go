@@ -38,7 +38,7 @@ func TestAppAiStorage(t *testing.T) {
 		firebaseTest.DefaultVerify(assert)
 
 		projectID := firebaseTest.GetStringOutput("project_id")
-		location := firebaseTest.GetStringOutput("location")
+		location := "global"
 		bucketName := firebaseTest.GetStringOutput("bucket_name")
 		objectName := firebaseTest.GetStringOutput("object_name")
 		templateId := firebaseTest.GetStringOutput("template_id")
@@ -76,7 +76,6 @@ func TestAppAiStorage(t *testing.T) {
 		// 4. Verify AI Logic Prompt Template via API
 		templates := firebase_util.GetAiLogicTemplates(t, projectID, location, token)
 		assert.GreaterOrEqual(len(templates), 1, "Should have at least one AI Logic template in the project")
-		
 		foundTemplate := false
 		for _, tmpl := range templates {
 			if strings.Contains(tmpl.Get("name").String(), templateId) {

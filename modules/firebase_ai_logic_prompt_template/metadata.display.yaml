@@ -42,6 +42,9 @@ spec:
         project_id:
           name: project_id
           title: Project ID
+        template_content:
+          name: template_content
+          title: Template Content
         template_id:
           name: template_id
           title: Template ID

@@ -32,7 +32,7 @@ variable "template_id" {
 
 variable "template_content" {
   description = "Prompt template content. Can either be specified as a raw string or a Google Cloud Storage object"
-  type        = object({
+  type = object({
     raw = optional(string)
     gcs_object_source = optional(object({
       bucket = string

@@ -25,7 +25,6 @@ module "ai_logic_example" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| location | The location for the AI Logic configuration. | `string` | `"global"` | no |
 | project\_id | The ID of the project to deploy to. | `string` | n/a | yes |
 
 ## Outputs

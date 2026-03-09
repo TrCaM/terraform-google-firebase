@@ -19,10 +19,6 @@ output "project_id" {
   value       = var.project_id
 }
 
-output "location" {
-  description = "The location."
-  value       = var.location
-}
 
 output "app_ids" {
   description = "The configured app IDs"

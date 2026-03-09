@@ -15,7 +15,7 @@
  */
 
 resource "google_firebase_app_hosting_backend" "backend" {
-  project          = var.project_id
+  project = var.project_id
 
   location         = var.location
   backend_id       = var.backend_id
@@ -28,8 +28,8 @@ resource "google_service_account" "service_account" {
   project = var.project_id
 
   # Must be firebase-app-hosting-compute
-  account_id                   = "firebase-app-hosting-compute"
-  display_name                 = "Firebase App Hosting compute service account"
+  account_id   = "firebase-app-hosting-compute"
+  display_name = "Firebase App Hosting compute service account"
 
   # Do not throw if already exists
   create_ignore_already_exists = true
@@ -48,7 +48,7 @@ resource "random_string" "build_id" {
   special = false
 
   # Upper case letters not allowed
-  upper   = false
+  upper = false
 
   keepers = {
     "image" = var.build.container_image

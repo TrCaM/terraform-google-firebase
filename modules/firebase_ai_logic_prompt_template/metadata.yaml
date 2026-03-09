@@ -32,8 +32,14 @@ spec:
     icon: assets/icon.png
   content:
     examples:
+      - name: app_ai_storage
+        location: examples/complex_cujs/app_ai_storage
+      - name: app_and_appcheck
+        location: examples/complex_cujs/app_and_appcheck
       - name: firebase_ai_logic
         location: examples/firebase_ai_logic
+      - name: firebase_app_hosting
+        location: examples/firebase_app_hosting
       - name: firebase_auth_suite
         location: examples/firebase_auth_suite
       - name: firebase_multi_platform_app
@@ -66,16 +72,17 @@ spec:
         description: The unique identifier for the prompt template.
         varType: string
         required: true
-      - name: template_string
-        description: Direct text input for the prompt template content. Overrides gcs_object_source if provided.
-        varType: string
-      - name: gcs_object_source
-        description: Object containing bucket and name to fetch prompt content from GCS.
+      - name: template_content
+        description: Prompt template content. Can either be specified as a raw string or a Google Cloud Storage object
         varType: |-
           object({
-              bucket = string
-              name   = string
+              raw = optional(string)
+              gcs_object_source = optional(object({
+                bucket = string
+                name   = string
+              }))
             })
+        required: true
       - name: enable_lock
         description: Whether to create a production lock for the prompt template.
         varType: bool
@@ -103,6 +110,8 @@ spec:
       - firestore.googleapis.com
       - storage.googleapis.com
       - firebaseapphosting.googleapis.com
+      - iam.googleapis.com
+      - apikeys.googleapis.com
     providerVersions:
       - source: hashicorp/google
         version: ">= 5.0, < 8.0"
