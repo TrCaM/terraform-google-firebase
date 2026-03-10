@@ -59,7 +59,7 @@ resource "google_firebase_app_hosting_build" "build" {
   project  = google_firebase_app_hosting_backend.backend.project
   location = google_firebase_app_hosting_backend.backend.location
   backend  = google_firebase_app_hosting_backend.backend.backend_id
-  build_id = random_string.build_id.result
+  build_id = "build-${random_string.build_id.result}"
 
   source {
     container {
@@ -68,19 +68,10 @@ resource "google_firebase_app_hosting_build" "build" {
   }
 }
 
-resource "time_sleep" "wait_for_build" {
-  depends_on = [google_firebase_app_hosting_build.build]
-
-  # Give the asynchronous build time to finish before rolling out traffic
-  create_duration = "60s"
-}
-
 resource "google_firebase_app_hosting_traffic" "traffic" {
   project  = google_firebase_app_hosting_backend.backend.project
   location = google_firebase_app_hosting_backend.backend.location
   backend  = google_firebase_app_hosting_backend.backend.backend_id
-
-  depends_on = [time_sleep.wait_for_build]
 
   target {
     splits {

@@ -14,13 +14,24 @@
  * limitations under the License.
  */
 
+module "firebase_app" {
+  source     = "../../modules/firebase_multi_platform_application"
+  project_id = var.project_id
+
+  apps = {
+    web_app = {
+      display_name = "App Hosting App"
+    }
+  }
+}
+
 module "app_hosting" {
   source     = "../../modules/firebase_app_hosting"
   project_id = var.project_id
 
   location   = "us-central1"
   backend_id = "example-backend"
-  web_app_id = "1:1234567890:web:abcdef1234567890" # Dummy Web App ID
+  web_app_id = module.firebase_app.app_ids[0]
 
   build = {
     container_image = "us-docker.pkg.dev/cloudrun/container/hello"
