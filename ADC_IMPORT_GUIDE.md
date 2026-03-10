@@ -86,6 +86,15 @@ gcloud design-center spaces catalogs templates create firebase-firestore-rules \
   --catalog="$CATALOG" \
   --display-name="Firestore Rules" \
   --template-category="COMPONENT_TEMPLATE"
+
+# 7. Firebase App Hosting
+gcloud design-center spaces catalogs templates create firebase-firebase-app-hosting \
+  --project="$PROJECT_ID" \
+  --location="$LOCATION" \
+  --space="$SPACE" \
+  --catalog="$CATALOG" \
+  --display-name="" \
+  --template-category="COMPONENT_TEMPLATE"
 ```
 
 ## Step 4: Run the Import Script
