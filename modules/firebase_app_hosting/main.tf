@@ -55,11 +55,24 @@ resource "random_string" "build_id" {
   }
 }
 
+resource "time_sleep" "wait_before_build" {
+  create_duration = "30s"
+
+  depends_on = [
+    google_firebase_app_hosting_backend.backend,
+    google_project_iam_member.app_hosting_sa_runner
+  ]
+}
+
 resource "google_firebase_app_hosting_build" "build" {
   project  = google_firebase_app_hosting_backend.backend.project
   location = google_firebase_app_hosting_backend.backend.location
   backend  = google_firebase_app_hosting_backend.backend.backend_id
   build_id = "build-${random_string.build_id.result}"
+
+  depends_on = [
+    time_sleep.wait_before_build
+  ]
 
   source {
     container {
