@@ -43,7 +43,7 @@ gcloud design-center spaces catalogs templates create firebase-multi-platform-ap
   --template-category="COMPONENT_TEMPLATE"
 
 # 2. Firebase App Check
-gcloud design-center spaces catalogs templates create terraform-google-firebase-app-check \
+gcloud design-center spaces catalogs templates create firebase-app-check \
   --project="$PROJECT_ID" \
   --location="$LOCATION" \
   --space="$SPACE" \
@@ -52,7 +52,7 @@ gcloud design-center spaces catalogs templates create terraform-google-firebase-
   --template-category="COMPONENT_TEMPLATE"
 
 # 3. Firebase Authentication
-gcloud design-center spaces catalogs templates create terraform-google-firebase-firebase-auth \
+gcloud design-center spaces catalogs templates create firebase-auth \
   --project="$PROJECT_ID" \
   --location="$LOCATION" \
   --space="$SPACE" \
