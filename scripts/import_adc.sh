@@ -19,7 +19,7 @@ set -e
 LOCATION="us-central1"
 SPACE="default-space"
 CATALOG="default-catalog"
-MODULES="firebase_multi_platform_application,firebase_app_check,firebase_auth,firebase_ai_logic_core,firebase_ai_logic_prompt_template,firestore_rules"
+MODULES="firebase_multi_platform_application,firebase_app_check,firebase_auth,firebase_app_hosting,firebase_ai_logic_core,firebase_ai_logic_prompt_template,firestore_rules"
 REPO="TrCaM/terraform-google-firebase"
 
 # Display usage
@@ -151,8 +151,9 @@ for DIR in "${MODULE_ARRAY[@]}"; do
     TEMPLATE=""
     case $DIR in
         "firebase_multi_platform_application") TEMPLATE="firebase-multi-platform-app" ;;
-        "firebase_app_check") TEMPLATE="terraform-google-firebase-app-check" ;;
-        "firebase_auth") TEMPLATE="terraform-google-firebase-firebase-auth" ;;
+        "firebase_app_check") TEMPLATE="firebase-app-check" ;;
+        "firebase_auth") TEMPLATE="firebase-firebase-auth" ;;
+        "firebase_app_hosting") TEMPLATE="firebase-firebase-app-hosting" ;;
         "firebase_ai_logic_core") TEMPLATE="firebase-firebase-ai-logic-core" ;;
         "firebase_ai_logic_prompt_template") TEMPLATE="firebase-firebase-ai-logic-prompt-template" ;;
         "firestore_rules") TEMPLATE="firebase-firestore-rules" ;;
