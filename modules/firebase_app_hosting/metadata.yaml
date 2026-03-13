@@ -20,7 +20,7 @@ metadata:
     config.kubernetes.io/local-config: "true"
 spec:
   info:
-    title: Firebase App Hosting Submodule
+    title: Firebase App Hosting
     source:
       repo: https://github.com/TrCaM/terraform-google-firebase.git
       sourceType: git
@@ -29,7 +29,7 @@ spec:
     actuationTool:
       flavor: Terraform
       version: ">= 1.3"
-    description: {}
+    description: Next-gen web hosting for modern web apps
     icon: assets/icon.png
   content:
     examples:
