@@ -194,6 +194,29 @@ for DIR in "${MODULE_ARRAY[@]}"; do
             --git-source-dir="modules/$DIR"
     fi
 
+    # Update template with display name and description from CSV
+    if [[ -f "scripts/templates.csv" ]]; then
+        echo "Updating display name and description for '$TEMPLATE'..."
+        DISPLAY_NAME=$(python3 -c "import csv, sys; print(next((r['template_name'] for r in csv.DictReader(open('scripts/templates.csv')) if r['template_id'] == sys.argv[1]), ''))" "$TEMPLATE")
+        DESCRIPTION=$(python3 -c "import csv, sys; print(next((r['description'] for r in csv.DictReader(open('scripts/templates.csv')) if r['template_id'] == sys.argv[1]), ''))" "$TEMPLATE")
+
+        if [[ -n "$DISPLAY_NAME" && -n "$DESCRIPTION" ]]; then
+            if [[ "$DRY_RUN" == "1" ]]; then
+                echo "  [DRY RUN] Would run: gcloud design-center spaces catalogs templates update \"$TEMPLATE\" --display-name=\"$DISPLAY_NAME\" --description=\"$DESCRIPTION\" ..."
+            else
+                gcloud design-center spaces catalogs templates update "$TEMPLATE" \
+                    --project="$PROJECT" \
+                    --location="$LOCATION" \
+                    --space="$SPACE" \
+                    --catalog="$CATALOG" \
+                    --display-name="$DISPLAY_NAME" \
+                    --description="$DESCRIPTION"
+            fi
+        else
+            echo "  Warning: Display name or description not found in templates.csv for '$TEMPLATE'."
+        fi
+    fi
+
     echo "Completed import for '$TEMPLATE'."
     echo ""
 done

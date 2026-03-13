@@ -29,7 +29,7 @@ spec:
     actuationTool:
       flavor: Terraform
       version: ">= 1.3"
-    description: Protect Firebase services from abuse
+    description: {}
     icon: assets/icon.png
   content:
     examples:

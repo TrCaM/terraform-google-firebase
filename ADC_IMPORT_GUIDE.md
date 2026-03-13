@@ -115,4 +115,5 @@ Run the following command, specifying the revision name (e.g., `r9`) and the Git
   --tag "v12.26.0"
 ```
 
-> **Note**: The script handles all 6 core modules automatically. It will use the configuration specified in the flags to associate the code from the Git repository with the ADC templates you created in Step 3.
+> **Note**: The script handles all core modules automatically. It will use the configuration specified in the flags to associate the code from the Git repository with the ADC templates you created in Step 3.
+> **Note**: The script also automatically applies the template display name and description using metadata configured in `scripts/templates.csv`.
