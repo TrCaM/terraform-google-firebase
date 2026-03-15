@@ -9,7 +9,7 @@ Run this quick command from the root of the repository:
 
 ```bash
 # Update the main module version and the local module connections dependency
-for f in modules/*/metadata.yaml; do 
+for f in modules/*/metadata.yaml; do
   sed -i.bak "s/^    version: .*/    version: 12.16.0/" "$f"
   sed -i.bak "s/^              version: \">= 12\.[0-9]*\.[0-9]*\"/              version: \">= 12.16.0\"/" "$f"
   rm -f "$f.bak"
