@@ -96,6 +96,14 @@ spec:
               value: firestore.googleapis.com
             - label: Firebase AI Logic
               value: firebaseml.googleapis.com
+            - label: Firebase Data Connect
+              value: firebasedataconnect.googleapis.com
+            - label: Firebase Realtime Database
+              value: firebasedatabase.googleapis.com
+            - label: Cloud Storage for Firebase
+              value: firebasestorage.googleapis.com
+            - label: Cloud Functions for Firebase
+              value: cloudfunctions.googleapis.com
           level: 1
         web_apps:
           name: web_apps

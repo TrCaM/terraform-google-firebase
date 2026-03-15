@@ -106,7 +106,7 @@ spec:
     roles:
       - level: Project
         roles:
-          - roles/owner
+          - roles/firebase.admin
     services:
       - cloudresourcemanager.googleapis.com
       - firebase.googleapis.com

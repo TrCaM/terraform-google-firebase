@@ -108,13 +108,5 @@ spec:
           title: Project ID
     runtime:
       outputs:
-        android_config:
-          visibility: VISIBILITY_ROOT
-        app_check_bundle:
-          visibility: VISIBILITY_ROOT
         app_ids:
-          visibility: VISIBILITY_ROOT
-        apple_config:
-          visibility: VISIBILITY_ROOT
-        web_config:
           visibility: VISIBILITY_ROOT
