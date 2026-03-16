@@ -56,7 +56,7 @@ resource "random_string" "build_id" {
 }
 
 resource "time_sleep" "wait_before_build" {
-  create_duration = "30s"
+  create_duration = "120s"
 
   depends_on = [
     google_firebase_app_hosting_backend.backend,
