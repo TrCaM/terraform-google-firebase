@@ -15,9 +15,43 @@
  */
 
 locals {
-  int_required_roles = [
-    "roles/firebase.admin"
-  ]
+  per_module_roles = {
+    firebase_multi_platform_app = [
+      "roles/firebase.admin",
+      "roles/serviceusage.serviceUsageAdmin",
+      "roles/serviceusage.apiKeysAdmin",
+      "roles/resourcemanager.projectIamAdmin",
+    ]
+    firebase_app_check = [
+      "roles/firebase.admin",
+      "roles/serviceusage.serviceUsageAdmin",
+    ]
+    firebase_auth = [
+      "roles/firebase.admin",
+      "roles/serviceusage.serviceUsageAdmin",
+      "roles/iam.serviceAccountAdmin",
+    ]
+    firebase_app_hosting = [
+      "roles/firebase.admin",
+      "roles/serviceusage.serviceUsageAdmin",
+      "roles/iam.serviceAccountUser",
+    ]
+    firebase_ai_logic_core = [
+      "roles/firebase.admin",
+      "roles/serviceusage.serviceUsageAdmin",
+    ]
+    firebase_ai_logic_prompt_template = [
+      "roles/firebase.admin",
+      "roles/serviceusage.serviceUsageAdmin",
+    ]
+    firestore_rules = [
+      "roles/firebase.admin",
+      "roles/serviceusage.serviceUsageAdmin",
+      "roles/datastore.owner",
+    ]
+  }
+
+  int_required_roles = tolist(toset(flatten(values(local.per_module_roles))))
 }
 
 resource "google_service_account" "int_test" {
