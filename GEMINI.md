@@ -54,6 +54,9 @@ make docker_run
 
 We use the standard CFT testing framework. The lifecycle consists of: `prepare` -> `integration` -> `cleanup`.
 
+> [!TIP]
+> **Having permission issues?** Run `make doctor` before any Docker commands. It immediately checks your environment variables and ensures your `SERVICE_ACCOUNT_JSON` is valid and mapped correctly.
+
 ### Step 1: Prepare Test Project
 Creates a transient Google Cloud Project for testing.
 ```bash

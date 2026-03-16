@@ -94,3 +94,8 @@ docker_generate_metadata:
 # Alias for backwards compatibility
 .PHONY: generate_docs
 generate_docs: docker_generate_docs
+
+# Run environment checks before testing
+.PHONY: doctor
+doctor:
+	@test/doctor.sh
