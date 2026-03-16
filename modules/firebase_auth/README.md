@@ -6,7 +6,7 @@ This module manages Firebase Authentication (Identity Platform) configuration an
 
 ```hcl
 module "firebase_auth" {
-  source  = "terraform-google-modules/firebase-auth/google"
+  source  = "GoogleCloudPlatform/firebase-auth/google"
   version = "~> 0.1"
 
   project_id = "my-project-id"

@@ -60,7 +60,7 @@ Copy and paste into your Terraform configuration, insert the variables, and run 
 For General Firebase Configuration:
 ```hcl
 module "firebase" {
-  source  = "terraform-google-modules/firebase/google//modules/firebase_core"
+  source  = "GoogleCloudPlatform/firebase/google//modules/firebase_core"
   version = "~> 0.1"
 
   project_id = "<PROJECT ID>"
@@ -70,7 +70,7 @@ module "firebase" {
 For Firebase Apps:
 ```hcl
 module "firebase_apps" {
-  source  = "terraform-google-modules/firebase/google//modules/firebase_apps"
+  source  = "GoogleCloudPlatform/firebase/google//modules/firebase_apps"
   version = "~> 0.1"
 
   project_id = "<PROJECT ID>"

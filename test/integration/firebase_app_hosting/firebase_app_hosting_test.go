@@ -25,8 +25,8 @@ import (
 	"github.com/GoogleCloudPlatform/cloud-foundation-toolkit/infra/blueprint-test/pkg/gcloud"
 	"github.com/GoogleCloudPlatform/cloud-foundation-toolkit/infra/blueprint-test/pkg/tft"
 	"github.com/GoogleCloudPlatform/cloud-foundation-toolkit/infra/blueprint-test/pkg/utils"
+	"github.com/GoogleCloudPlatform/terraform-google-firebase/test/integration/firebase_util"
 	"github.com/stretchr/testify/assert"
-	"github.com/terraform-google-modules/terraform-google-firebase/test/integration/firebase_util"
 )
 
 func TestFirebaseAppHosting(t *testing.T) {

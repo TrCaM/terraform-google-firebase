@@ -1,4 +1,4 @@
-module github.com/terraform-google-modules/terraform-google-firebase/test/integration
+module github.com/GoogleCloudPlatform/terraform-google-firebase/test/integration
 
 go 1.21
 
