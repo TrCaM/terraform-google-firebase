@@ -49,6 +49,14 @@ locals {
       "roles/serviceusage.serviceUsageAdmin",
       "roles/datastore.owner",
     ]
+    root = [
+      "roles/resourcemanager.projectIamAdmin",
+      "roles/serviceusage.serviceUsageAdmin",
+      "roles/iam.serviceAccountAdmin",
+      "roles/iam.serviceAccountUser",
+      "roles/firebase.admin",
+      "roles/firebaseapphosting.admin",
+    ]
   }
 
   int_required_roles = tolist(toset(flatten(values(local.per_module_roles))))

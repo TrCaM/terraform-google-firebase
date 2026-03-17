@@ -33,7 +33,7 @@ import (
 
 func TestAppAndAppCheck(t *testing.T) {
 	firebaseTest := tft.NewTFBlueprintTest(t,
-		tft.WithTFDir("../../examples/app_and_appcheck"),
+		tft.WithTFDir("../../../examples/app_and_appcheck"),
 	)
 
 	firebaseTest.DefineVerify(func(assert *assert.Assertions) {

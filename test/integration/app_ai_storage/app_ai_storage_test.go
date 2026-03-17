@@ -31,7 +31,7 @@ import (
 
 func TestAppAiStorage(t *testing.T) {
 	firebaseTest := tft.NewTFBlueprintTest(t,
-		tft.WithTFDir("../../examples/app_ai_storage"),
+		tft.WithTFDir("../../../examples/app_ai_storage"),
 	)
 
 	firebaseTest.DefineVerify(func(assert *assert.Assertions) {
