@@ -14,9 +14,17 @@
  * limitations under the License.
  */
 
+locals {
+  # Split the string by "/"
+  parts = split("/", var.database_id)
+
+  # Grab the last element of the resulting list
+  db_id = element(local.parts, length(local.parts) - 1)
+}
+
 resource "google_firebaserules_release" "release" {
   project      = var.project_id
-  name         = var.database_id == "(default)" ? "cloud.firestore" : "cloud.firestore/${var.database_id}"
+  name         = local.db_id == "(default)" ? "cloud.firestore" : "cloud.firestore/${local.db_id}"
   ruleset_name = google_firebaserules_ruleset.ruleset.name
 }
 
