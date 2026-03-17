@@ -1,6 +1,6 @@
-# Firebase Multi-Platform Application Example
+# Firebase App Hosting Example
 
-This example demonstrates how to use the `firebase_multi_platform_application` submodule to bootstrap a Firebase project with Web, Android, and Apple apps.
+This example demonstrates how to deploy a Firebase App Hosting backend interconnected with a Firebase Web App.
 
 ## Run Terraform
 
@@ -29,10 +29,10 @@ terraform destroy
 
 | Name | Description |
 |------|-------------|
-| android\_config | Android app configuration. |
-| app\_ids | The created app IDs. |
-| apple\_config | Apple app configuration. |
+| backend\_id | The ID of the App Hosting backend |
+| backend\_name | The name of the App Hosting backend |
+| build\_name | The name of the App Hosting build |
 | project\_id | The project ID. |
-| web\_config | Web app configuration. |
+| service\_account\_email | The email of the service account used by the App Hosting backend |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

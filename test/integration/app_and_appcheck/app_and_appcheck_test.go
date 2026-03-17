@@ -22,6 +22,8 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/gruntwork-io/terratest/modules/terraform"
+
 	"github.com/GoogleCloudPlatform/cloud-foundation-toolkit/infra/blueprint-test/pkg/gcloud"
 	"github.com/GoogleCloudPlatform/cloud-foundation-toolkit/infra/blueprint-test/pkg/tft"
 	"github.com/GoogleCloudPlatform/cloud-foundation-toolkit/infra/blueprint-test/pkg/utils"
@@ -29,26 +31,21 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestAppAiStorage(t *testing.T) {
+func TestAppAndAppCheck(t *testing.T) {
 	firebaseTest := tft.NewTFBlueprintTest(t,
-		tft.WithTFDir("../../../examples/complex_cujs/app_ai_storage"),
+		tft.WithTFDir("../../examples/complex_cujs/app_and_appcheck"),
 	)
 
 	firebaseTest.DefineVerify(func(assert *assert.Assertions) {
 		firebaseTest.DefaultVerify(assert)
 
 		projectID := firebaseTest.GetStringOutput("project_id")
-		location := "global"
-		bucketName := firebaseTest.GetStringOutput("bucket_name")
-		objectName := firebaseTest.GetStringOutput("object_name")
-		templateId := firebaseTest.GetStringOutput("template_id")
 
 		// 1. Verify Enabled APIs
 		services := gcloud.Run(t, "services list", gcloud.WithCommonArgs([]string{"--project", projectID, "--format", "json"})).Array()
 		expectedAPIs := []string{
 			"firebase.googleapis.com",
-			"firebasevertexai.googleapis.com",
-			"generativelanguage.googleapis.com",
+			"firebaseappcheck.googleapis.com",
 		}
 		for _, api := range expectedAPIs {
 			match := utils.GetFirstMatchResult(t, services, "config.name", api)
@@ -66,25 +63,26 @@ func TestAppAiStorage(t *testing.T) {
 			return results[0].Get("appId").String()
 		}
 
-		verifyApp(firebase_util.Web)
+		webAppId := verifyApp(firebase_util.Web)
+		androidAppId := verifyApp(firebase_util.Android)
+		iosAppId := verifyApp(firebase_util.IOS)
 
-		// 3. Verify Cloud Storage Object
-		storageOut, err := exec.Command("gcloud", "storage", "cat", fmt.Sprintf("gs://%s/%s", bucketName, objectName)).Output()
-		assert.NoError(err, "Failed to read GCS object")
-		assert.Contains(string(storageOut), "Hello from an integration test GCS prompt!")
+		// 3. Verify the app_check_bundle output size & enabled_app_ids
+		enabledAppIds := terraform.OutputList(t, firebaseTest.GetTFOptions(), "enabled_app_ids")
+		assert.Len(enabledAppIds, 3, "Should have exactly 3 enabled_app_ids output from App Check module")
 
-		// 4. Verify AI Logic Prompt Template via API
-		templates := firebase_util.GetAiLogicTemplates(t, projectID, location, token)
-		assert.GreaterOrEqual(len(templates), 1, "Should have at least one AI Logic template in the project")
-		foundTemplate := false
-		for _, tmpl := range templates {
-			if strings.Contains(tmpl.Get("name").String(), templateId) {
-				foundTemplate = true
-				break
-			}
-		}
-		assert.True(foundTemplate, "Expected prompt template ID not found in the project's templates list")
+		// 4. Verify App Check Attestation configurations via REST API
+		// Check Web RecaptchaConfig
+		webConfig := firebase_util.GetAppCheckConfig(t, projectID, webAppId, "recaptchaEnterpriseConfig", token)
+		assert.NotEmpty(webConfig.Get("siteKey").String(), "Web App should have recaptcha enterprise config attached")
 
+		// Check Android PlayIntegrityConfig
+		androidConfig := firebase_util.GetAppCheckConfig(t, projectID, androidAppId, "playIntegrityConfig", token)
+		assert.Contains(androidConfig.Get("name").String(), fmt.Sprintf("apps/%s/playIntegrityConfig", androidAppId), "Android App should have play integrity config attached")
+
+		// Check iOS DeviceCheckConfig
+		iosConfig := firebase_util.GetAppCheckConfig(t, projectID, iosAppId, "deviceCheckConfig", token)
+		assert.Contains(iosConfig.Get("name").String(), fmt.Sprintf("apps/%s/deviceCheckConfig", iosAppId), "iOS App should have device check config attached")
 	})
 
 	firebaseTest.Test()

@@ -1,6 +1,6 @@
-# Firebase Multi-Platform Application Example
+# Firebase App and AppCheck Example
 
-This example demonstrates how to use the `firebase_multi_platform_application` submodule to bootstrap a Firebase project with Web, Android, and Apple apps.
+This example demonstrates how to configure Firebase App and AppCheck.
 
 ## Run Terraform
 
@@ -23,16 +23,16 @@ terraform destroy
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| project\_id | The GCP project ID to use for the example. | `string` | n/a | yes |
+| project\_id | The GCP project ID | `string` | n/a | yes |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| android\_config | Android app configuration. |
-| app\_ids | The created app IDs. |
-| apple\_config | Apple app configuration. |
+| app\_check\_bundle | The app check bundle |
+| app\_ids | The configured app IDs |
+| enabled\_app\_ids | A sorted list of all unique Firebase App IDs configured for App Check in this module. |
+| enabled\_service\_ids | The list of service IDs for which App Check enforcement is enabled. |
 | project\_id | The project ID. |
-| web\_config | Web app configuration. |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

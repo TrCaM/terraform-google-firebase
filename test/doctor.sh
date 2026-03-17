@@ -55,11 +55,10 @@ echo "Checking SERVICE_ACCOUNT_JSON..."
 if [ -z "$SERVICE_ACCOUNT_JSON" ]; then
   echo -e "${RED}[✗] SERVICE_ACCOUNT_JSON is not set.${NC}"
   FAILS=$((FAILS + 1))
-  
   echo -e "\n${YELLOW}To fix this, you must export the JSON contents of a Service Account key with Owner permissions on the target folder.${NC}"
   echo "Ask the Firebase team for access to the central billing project if needed, then run:"
-  echo 'gcloud iam service-accounts keys create /tmp/cft.json --iam-account=<SERVICE_ACCOUNT_EMAIL>'
-  echo 'export SERVICE_ACCOUNT_JSON=$(< /tmp/cft.json)'
+  echo "gcloud iam service-accounts keys create /tmp/cft.json --iam-account=<SERVICE_ACCOUNT_EMAIL>"
+  echo "export SERVICE_ACCOUNT_JSON=\$(< /tmp/cft.json)"
   echo ""
 else
   # Verify valid JSON
@@ -69,7 +68,7 @@ else
     echo -e "${RED}[✗] SERVICE_ACCOUNT_JSON is set but contains INVALID format.${NC}"
     FAILS=$((FAILS + 1))
     echo -e "\n${YELLOW}To fix this, ensure you are exporting the actual JSON contents, not the file path!${NC}"
-    echo 'Correct:   export SERVICE_ACCOUNT_JSON=$(< /path/to/key.json)'
+    echo "Correct:   export SERVICE_ACCOUNT_JSON=\$(< /path/to/key.json)"
     echo 'Incorrect: export SERVICE_ACCOUNT_JSON="/path/to/key.json"'
     echo ""
   fi

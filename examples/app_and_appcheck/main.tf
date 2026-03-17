@@ -23,7 +23,7 @@ provider "google-beta" {
 }
 
 module "multi_platform_app" {
-  source     = "../../../modules/firebase_multi_platform_application"
+  source     = "../../modules/firebase_multi_platform_application"
   project_id = var.project_id
 
   apps = {
@@ -64,7 +64,7 @@ EOT
 }
 
 module "app_check" {
-  source     = "../../../modules/firebase_app_check"
+  source     = "../../modules/firebase_app_check"
   project_id = var.project_id
 
   service_ids = [

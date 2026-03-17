@@ -1,6 +1,6 @@
-# Firebase Multi-Platform Application Example
+# Firebase App AI Storage Example
 
-This example demonstrates how to use the `firebase_multi_platform_application` submodule to bootstrap a Firebase project with Web, Android, and Apple apps.
+This example demonstrates how to set up Firebase App, AI, and Storage integrations.
 
 ## Run Terraform
 
@@ -23,16 +23,16 @@ terraform destroy
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| project\_id | The GCP project ID to use for the example. | `string` | n/a | yes |
+| project\_id | The GCP project ID | `string` | n/a | yes |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| android\_config | Android app configuration. |
-| app\_ids | The created app IDs. |
-| apple\_config | Apple app configuration. |
+| app\_ids | The configured app IDs |
+| bucket\_name | The name of the GCS bucket. |
+| object\_name | The name of the GCS object containing the prompt. |
 | project\_id | The project ID. |
-| web\_config | Web app configuration. |
+| template\_id | The prompt template ID created. |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

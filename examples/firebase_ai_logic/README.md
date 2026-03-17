@@ -1,23 +1,21 @@
 # Firebase AI Logic Integrated Example
 
-This example demonstrates how to set up Firebase AI Logic (formerly Vertex AI in Firebase) using a modular approach. It integrates with the `firebase_multi_platform_application` module to ensure a prerequisite Firebase App exists before configuring AI Logic.
+This example demonstrates how to set up Firebase AI Logic using a modular approach. It integrates with the `firebase_multi_platform_application` module and demonstrates creating multiple prompt templates.
 
-## Features
-- **Project-wide Configuration**: Uses `firebase_ai_logic_core` to set up the Gemini API key and telemetry.
-- **Prerequisite App Integration**: Automatically links to a Web App created via the `firebase_multi_platform_application` module.
-- **Multiple Prompt Templates**: Demonstrates creating multiple templates (`firebase_ai_logic_prompt_template`).
-- **Flexible Sourcing**: Shows both direct `template_string` usage and fetching content from a GCS bucket (`gcs_source`).
+## Run Terraform
 
-## Usage
+Create resources with terraform:
 
-1.  Set the `project_id` variable.
-2.  Run `terraform init` and `terraform apply`.
+```bash
+terraform init
+terraform plan
+terraform apply
+```
 
-```hcl
-module "ai_logic_example" {
-  source     = "TrCaM/firebase/google//examples/firebase_ai_logic"
-  project_id = "your-project-id"
-}
+To remove all resources created by terraform:
+
+```bash
+terraform destroy
 ```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

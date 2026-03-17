@@ -2,11 +2,21 @@
 
 This example demonstrates how to use the `firestore_rules` submodule to deploy Firestore security rules.
 
-## Usage
+## Run Terraform
 
-1.  Initialize Terraform: `terraform init`
-2.  Plan the changes: `terraform plan -var="project_id=YOUR_PROJECT_ID"`
-3.  Apply the changes: `terraform apply -var="project_id=YOUR_PROJECT_ID"`
+Create resources with terraform:
+
+```bash
+terraform init
+terraform plan
+terraform apply
+```
+
+To remove all resources created by terraform:
+
+```bash
+terraform destroy
+```
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Inputs

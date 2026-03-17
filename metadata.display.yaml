@@ -20,7 +20,7 @@ metadata:
     config.kubernetes.io/local-config: "true"
 spec:
   info:
-    title: releasing/terraform-google-firebase/terraform-google-firebase
+    title: terraform-google-firebase
     source:
       repo: https://github.com/TrCaM/terraform-google-firebase.git
       sourceType: git

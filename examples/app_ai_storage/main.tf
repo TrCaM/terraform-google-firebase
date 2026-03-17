@@ -45,7 +45,7 @@ EOT
 }
 
 module "multi_platform_app" {
-  source     = "../../../modules/firebase_multi_platform_application"
+  source     = "../../modules/firebase_multi_platform_application"
   project_id = var.project_id
 
   apps = {
@@ -56,7 +56,7 @@ module "multi_platform_app" {
 }
 
 module "ai_logic_core" {
-  source     = "../../../modules/firebase_ai_logic_core"
+  source     = "../../modules/firebase_ai_logic_core"
   project_id = var.project_id
 
   api_config = {
@@ -66,7 +66,7 @@ module "ai_logic_core" {
 }
 
 module "ai_logic_template" {
-  source      = "../../../modules/firebase_ai_logic_prompt_template"
+  source      = "../../modules/firebase_ai_logic_prompt_template"
   project_id  = var.project_id
   template_id = "complex-cuj-gcs-template"
 
