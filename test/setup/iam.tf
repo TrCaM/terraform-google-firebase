@@ -34,7 +34,7 @@ locals {
     firebase_app_hosting = [
       "roles/firebase.admin",
       "roles/serviceusage.serviceUsageAdmin",
-      "roles/iam.serviceAccountUser",
+      "roles/iam.serviceAccountAdmin",
     ]
     firebase_ai_logic_core = [
       "roles/firebase.admin",
