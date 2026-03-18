@@ -35,6 +35,7 @@ locals {
       "roles/firebase.admin",
       "roles/serviceusage.serviceUsageAdmin",
       "roles/iam.serviceAccountAdmin",
+      "roles/firebaseapphosting.admin",
     ]
     firebase_ai_logic_core = [
       "roles/firebase.admin",
@@ -55,11 +56,10 @@ locals {
       "roles/iam.serviceAccountAdmin",
       "roles/iam.serviceAccountUser",
       "roles/firebase.admin",
-      "roles/firebaseapphosting.admin",
     ]
   }
 
-  int_required_roles = tolist(toset(flatten(values(local.per_module_roles))))
+  int_required_roles = distinct(flatten(values(local.per_module_roles)))
 }
 
 resource "google_service_account" "int_test" {
@@ -69,10 +69,10 @@ resource "google_service_account" "int_test" {
 }
 
 resource "google_project_iam_member" "int_test" {
-  for_each = toset(local.int_required_roles)
+  count = length(local.int_required_roles)
 
   project = module.project.project_id
-  role    = each.value
+  role    = local.int_required_roles[count.index]
   member  = "serviceAccount:${google_service_account.int_test.email}"
 }
 
