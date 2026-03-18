@@ -49,15 +49,7 @@ module "multi_platform_app" {
       bundle_id    = "com.google.appcheckios.complex"
       team_id      = "1234567890"
       app_check_config = {
-        enable_device_check = true
-        device_check_key    = <<-EOT
------BEGIN PRIVATE KEY-----
-MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQg8Fmk59RGHacODOjj
-qfqi9G/8bZdjHKXwvkE7RMafygahRANCAATmQnn7k7jedVna6YYq5KRiRQ5zK5Eb
-FEw3KRp2+M0eFB8YIePTmSosKA/Xs60R5Y4aCKr0UXGsWAUT0EhhKehz
------END PRIVATE KEY-----
-EOT
-        device_check_id     = "TESTKEYID"
+        enable_app_attest = true
       }
     }
   }
